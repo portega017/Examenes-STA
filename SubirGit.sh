@@ -1,4 +1,5 @@
 #!/bin/sh
+
 # Nombre
 echo "¿Cual es tu nombre?"
 read NOMBRE
