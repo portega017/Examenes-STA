@@ -4,6 +4,10 @@
 echo "¿Cual es tu nombre?"
 read NOMBRE
 
+# Pull
+cd ~/Examenes-ASI/
+git pull
+
 # Workspace
 cd ~/Examenes-STA/$NOMBRE
 
@@ -12,7 +16,6 @@ echo "¿Que has hecho hoy?"
 read COMMIT
 
 # Git
-git pull
 git add -A
 git commit -m "$COMMIT"
 git push
