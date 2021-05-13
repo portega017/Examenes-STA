@@ -9,8 +9,55 @@
 	<title>Contactos</title>
 </h:head> 
 <body> 
-
-
-
+	<h1>Agenda de contactos</h1>
+	<h2>Lista de contactos</h2>
+	<table>
+		 <tr>
+			<th>ID</th>
+			<th>Nombre</th>
+			<th>Apellidos</th>
+			<th>Alias</th>
+			<th>E-Mail</th>
+			<th>Telefono</th>
+		</tr>
+		<ui:repeat var="c" value="#{agendaBean.contactos}">
+			<tr>
+				<td>#{c.idCONTACTOS}</td>
+				<td>#{c.nombre}</td>
+				<td>#{c.apellidos}</td>
+				<td>#{c.alias}</td>
+				<td>#{c.email}</td>
+				<td>#{c.telefono}</td>
+				<td>
+					<h:commandButton action="#{agendaBean.bajaContacto(c)}" value="Eliminar" />
+				</td>
+			</tr>
+		</ui:repeat>
+	</table>
+	<h2>Dar de alta un contacto</h2>
+	<h:form>
+		<table>
+			<tr>
+				<th>Nombre</th>
+			</tr>
+			<tr>
+				<h:inputText value="" />
+			</tr>
+		</table>
+	</h:form>
+		<h2>Buscar un contacto</h2>
+	<h:form>
+		<table>
+			<tr>
+				<th>Nombre</th>
+			</tr>
+			<tr>
+				<h:inputText value="#{agendaBean.set}" />
+			</tr>
+			<tr>
+				<h:commandButton action="#{agendaBean.bajaContacto()}" value="Buscar" />
+			</tr>
+		</table>
+	</h:form>
 </body> 
 </html>
