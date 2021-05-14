@@ -1,0 +1,74 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema ExamenSta
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema ExamenSta
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `ExamenSta` DEFAULT CHARACTER SET utf8 ;
+USE `ExamenSta` ;
+
+-- -----------------------------------------------------
+-- Table `ExamenSta`.`Categoria`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ExamenSta`.`Categoria` (
+  `idCategoria` INT(11) NOT NULL AUTO_INCREMENT,
+  `nombreCategoria` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`idCategoria`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 9
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `ExamenSta`.`Tarea`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ExamenSta`.`Tarea` (
+  `idTarea` INT(11) NOT NULL AUTO_INCREMENT,
+  `nombreTarea` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`idTarea`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 6
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `ExamenSta`.`Tiempo`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ExamenSta`.`Tiempo` (
+  `idTiempo` INT(11) NOT NULL AUTO_INCREMENT,
+  `tiempo` BIGINT(20) NOT NULL,
+  `Tarea_idTarea` INT(11) NOT NULL,
+  `Categoria_idCategoria` INT(11) NOT NULL,
+  `usuario` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`idTiempo`),
+  INDEX `fk_Tiempo_Tarea_idx` (`Tarea_idTarea` ASC),
+  INDEX `fk_Tiempo_Categoria1_idx` (`Categoria_idCategoria` ASC),
+  CONSTRAINT `fk_Tiempo_Categoria1`
+    FOREIGN KEY (`Categoria_idCategoria`)
+    REFERENCES `ExamenSta`.`Categoria` (`idCategoria`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_Tiempo_Tarea`
+    FOREIGN KEY (`Tarea_idTarea`)
+    REFERENCES `ExamenSta`.`Tarea` (`idTarea`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+AUTO_INCREMENT = 21
+DEFAULT CHARACTER SET = utf8;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+

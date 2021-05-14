@@ -1,0 +1,100 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema ordinaria2013
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema ordinaria2013
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `ordinaria2013` DEFAULT CHARACTER SET latin1 ;
+-- -----------------------------------------------------
+-- Schema StaJul14
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema StaJul14
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `StaJul14` DEFAULT CHARACTER SET latin1 ;
+USE `ordinaria2013` ;
+
+-- -----------------------------------------------------
+-- Table `ordinaria2013`.`contacto`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ordinaria2013`.`contacto` (
+  `idcontacto` INT(11) NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(45) NOT NULL,
+  `apellidos` VARCHAR(45) NULL DEFAULT NULL,
+  `correo` VARCHAR(45) NULL DEFAULT NULL,
+  `numero` VARCHAR(45) NULL DEFAULT NULL,
+  `alias` VARCHAR(45) NULL DEFAULT NULL,
+  PRIMARY KEY (`idcontacto`),
+  UNIQUE INDEX `idcontacto_UNIQUE` (`idcontacto` ASC))
+ENGINE = InnoDB
+AUTO_INCREMENT = 7
+DEFAULT CHARACTER SET = latin1;
+
+USE `StaJul14` ;
+
+-- -----------------------------------------------------
+-- Table `StaJul14`.`Alumno`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `StaJul14`.`Alumno` (
+  `dni` VARCHAR(45) NOT NULL,
+  `nombre` VARCHAR(45) NOT NULL,
+  `apellidos` VARCHAR(45) NULL DEFAULT NULL,
+  PRIMARY KEY (`dni`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `StaJul14`.`Asignatura`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `StaJul14`.`Asignatura` (
+  `idAsignatura` INT(11) NOT NULL AUTO_INCREMENT,
+  `nombreAsignatura` VARCHAR(45) NULL DEFAULT NULL,
+  PRIMARY KEY (`idAsignatura`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 27387
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `StaJul14`.`Nota`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `StaJul14`.`Nota` (
+  `idNota` INT(11) NOT NULL AUTO_INCREMENT,
+  `nota` VARCHAR(45) NOT NULL,
+  `Asignatura_idAsignatura` INT(11) NOT NULL,
+  `Alumno_dni` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`idNota`),
+  UNIQUE INDEX `idNota_UNIQUE` (`idNota` ASC),
+  INDEX `fk_Nota_Asignatura1_idx` (`Asignatura_idAsignatura` ASC),
+  INDEX `fk_Nota_Alumno1_idx` (`Alumno_dni` ASC),
+  CONSTRAINT `fk_Nota_Alumno1`
+    FOREIGN KEY (`Alumno_dni`)
+    REFERENCES `StaJul14`.`Alumno` (`dni`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_Nota_Asignatura1`
+    FOREIGN KEY (`Asignatura_idAsignatura`)
+    REFERENCES `StaJul14`.`Asignatura` (`idAsignatura`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+AUTO_INCREMENT = 9
+DEFAULT CHARACTER SET = latin1;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+

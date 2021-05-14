@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="/WEB-INF/templates/layout.xhtml">
+	<ui:define name="pageTitle">Administrador</ui:define>
+	<ui:define name="pageHeader">Bienvenido administrador</ui:define>
+	<ui:define name="body">
+	<h:form>
+	<h:panelGrid border="3" columns="5">
+	<h:outputLabel value="Nombre" />
+	<h:outputLabel value="Descripcion" />
+	<h:outputLabel value="Precio" />
+	<h:outputLabel value="Categoria" />
+	<h:outputLabel value="Accion" />
+
+	<h:inputText value="#{inventarioBean.producto.nombre}" />
+	<h:inputText value="#{inventarioBean.producto.descripcion}" />
+	<h:inputText value="#{inventarioBean.producto.precio}" />	
+		
+	<h:selectOneMenu value="#{inventarioBean.indice}">
+		<f:selectItems value="#{inventarioBean.items}"></f:selectItems>
+	</h:selectOneMenu>
+	
+	<h:commandButton action="#{inventarioBean.guardarProducto()}" value="AÑADIR" />
+	
+	</h:panelGrid>
+	
+	</h:form>
+	
+	
+	
+	
+	<h:form>
+	<h:panelGrid border="3" columns="2">
+	<h:outputLabel value="Categoria" />
+	
+
+	<h:inputText value="#{inventarioBean.cat.tipo}" />
+
+	
+	<h:commandButton action="#{inventarioBean.guardarcat()}" value="AÑADIR" />
+	
+	</h:panelGrid>
+	
+	</h:form>
+	
+	
+	
+	
+	
+	
+	
+	</ui:define>
+	</ui:composition>
+</html>

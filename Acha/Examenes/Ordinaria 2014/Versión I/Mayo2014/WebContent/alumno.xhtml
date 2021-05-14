@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="WEB-INF/templates/layout.xhtml">
+	      <ui:define name="tituloDocumento"></ui:define>
+	      <ui:define name="tituloPagina">¡Bienvenido!</ui:define>
+	      <ui:define name="cuerpoDocumento">
+	      	
+	    <h:form>
+	    DNI:
+	    <h:inputText  value="#{alumnoBean.alumno.dni}" id="dni" required="true" requiredMessage="#{alumnoBean.sms}" ></h:inputText>
+	    
+	    <h:commandButton action="#{notaBean.obtenerNotas(alumnoBean.alumno.dni)}" value="Obtener notas"  />
+	   <h:message for="dni" style="color:red"/>
+	    </h:form>
+	    <h:outputText value="¡Introduzca los datos correctamente!" rendered="#{notaBean.correcto}" />
+	   
+	     <h:dataTable value="#{notaBean.obtenerNotas(alumnoBean.alumno.dni)}" required="true" var="nota" rendered="#{notaBean.mostrar}">
+	   
+	    <h:column>
+	    <f:facet name="header">Id</f:facet>
+	    <h:outputText value="#{nota.idNota}" />
+	    </h:column>
+	   
+	   <h:column>
+	    <f:facet name="header">Asignatura</f:facet>
+	    <h:outputText value="#{nota.asignaturaBean.nombre}" />
+	    </h:column>
+	    
+	    <h:column>
+	    <f:facet name="header">Nota</f:facet>
+	    <h:outputText value="#{nota.nota}" />
+	    </h:column>
+	    </h:dataTable>
+
+	      </ui:define>
+      </ui:composition> 
+
+</html>

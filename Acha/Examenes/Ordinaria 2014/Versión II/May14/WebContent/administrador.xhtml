@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="/WEB-INF/templates/layout.xhtml">
+	<ui:define name="pageTitle">Administrador</ui:define>
+	<ui:define name="pageHeader">Bienvenido</ui:define>
+	<ui:define name="body">
+	
+	<h3>ALUMNOS DISPONIBLES</h3>
+	<h:form>
+	<h:dataTable value="#{alumnoBean.listaAlumnos}" var="alumno">
+	
+	<h:column>
+	<f:facet name="header">DNI</f:facet>
+	<h:outputText value="#{alumno.dni}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header">Nombre</f:facet>
+	<h:outputText value="#{alumno.nombre}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header">Apellidos</f:facet>
+	<h:outputText value="#{alumno.apellidos}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header">Acción</f:facet>
+	<h:commandButton action="#{alumnoBean.borrarAlumno(alumno.dni)}"  value="BORRAR ALUMNO"/>
+	</h:column>
+	</h:dataTable>
+	</h:form>
+	
+	
+	<h3>NUEVO ALUMNO</h3>
+	<h:form>
+	Dni : 
+	<h:inputText value="#{alumnoBean.alumno.dni}"/><br />
+	
+	Nombre : 
+	<h:inputText value="#{alumnoBean.alumno.nombre}"/><br />
+	
+	Apellidos : 
+	<h:inputText value="#{alumnoBean.alumno.apellidos}"/><br />
+	<h:commandButton action="#{alumnoBean.addAllumno()}" value="AÑADIR NUEVO ALUMNO"/>
+	</h:form>
+	
+	
+	
+	<h3>ASIGNATURAS DISPONIBLES</h3>
+	<h:form>
+	<h:dataTable value="#{asignaturaBean.listaAsignaturas}" var="asignatura">
+	
+	<h:column>
+	<f:facet name="header">Identidicador</f:facet>
+	<h:outputText value="#{asignatura.idAsignatura}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header">Nombre Asignatura</f:facet>
+	<h:outputText value="#{asignatura.nombre}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header">Acción</f:facet>
+	<h:commandButton action="#{asignaturaBean.borrarAsignatura(asignatura.idAsignatura)}" value="Borrar Asignatura" />
+	</h:column>
+	
+	</h:dataTable>
+	</h:form>
+	
+	<h3>NUEVA ASIGNATURA</h3>
+	<h:form>
+
+	Nombre : 
+	<h:inputText value="#{asignaturaBean.asignatura.nombre}"/><br />
+	<h:commandButton action="#{asignaturaBean.addAsignatura()}" value="AÑADIR NUEVA ASIGNATURA"/>
+	</h:form>
+	</ui:define>
+	</ui:composition>
+</html>

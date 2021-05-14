@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="/WEB-INF/templates/layout.xhtml">
+	<ui:define name="pageTitle">Admin</ui:define>
+	<ui:define name="pageHeader">
+	<h:outputText value="#{tiempoBean.bienvenida()}" />
+	</ui:define>
+	<ui:define name="body">
+	
+	<h:form>
+	<h3>TAREAS</h3>
+	Nueva tarea: <br/>
+	Nombre Tarea
+	<h:inputText value="#{tareaBean.tarea.nombreTarea}" />
+	<h:commandButton action="#{tareaBean.addTarea(tareaBean.tarea.nombreTarea)}" value="Añadir Tarea" />
+	</h:form>
+	
+	<h:form>
+	<h:dataTable value="#{tareaBean.listaTareas}" var="tareas">
+	
+	<h:column>
+	<f:facet name="header">ID Tarea</f:facet>
+	<h:outputText value="#{tareas.idTarea}" />	
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header">Nombre</f:facet>
+	<h:outputText value="#{tareas.nombreTarea}" />	
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header">Accion</f:facet>
+	<h:commandButton action="#{tareaBean.borrarTarea(tareas.idTarea)}" value="Borrar" /> 	
+	</h:column>
+	
+	</h:dataTable>
+	
+	</h:form>
+	
+	
+	
+	<h:form>
+	<h3>CATEGORIAS</h3>
+	Nueva Categoria: <br/>
+	Nombre Categoria
+	<h:inputText value="#{categoriaBean.categoria.nombreCategoria}" />
+	<h:commandButton action="#{categoriaBean.addCategoria(categoriaBean.categoria.nombreCategoria)}" value="Añadir Categria" />
+	</h:form>
+	
+	<h:form>
+	<h:dataTable value="#{categoriaBean.listaCategorias}" var="cat">
+	
+	<h:column>
+	<f:facet name="header">ID Categoria</f:facet>
+	<h:outputText value="#{cat.idCategoria}" />	
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header">Nombre</f:facet>
+	<h:outputText value="#{cat.nombreCategoria}" />	
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header">Accion</f:facet>
+	<h:commandButton action="#{categoriaBean.borrarCategoriass(cat.idCategoria)}" value="Borrar" /> 	
+	</h:column>
+	</h:dataTable>
+	</h:form>
+	
+	<h2>GESTIÓN DE TIEMPOS</h2>
+	
+	<h:form>
+	<h:dataTable value="#{tiempoBean.listaTiempo}" var="tiempo" rendered="#{tiempoBean.mostrar==false}">
+	
+	
+	<h:column>
+	<f:facet name="header">Categoria</f:facet>
+	<h:outputText value="#{tiempo.categoria.nombreCategoria}" />	
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header">Tarea</f:facet>
+	<h:outputText value="#{tiempo.tarea.nombreTarea}" />	
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header">Tarea</f:facet>
+	<h:commandButton action="#{tiempoBean.getSegundosINICIO(tiempo.tarea.idTarea,tiempo.categoria.idCategoria)}" value="INICIO"/>	
+	</h:column>	
+	</h:dataTable>
+	</h:form>
+	<h:form>
+	<h:commandButton action="#{tiempoBean.getSegundosFINAL()}" value="FIN" rendered="#{tiempoBean.mostrar}"/>	
+	
+	</h:form>
+	
+	<h:outputLink value="usuario.xhtml">IR A Estadisticas</h:outputLink>
+	</ui:define>
+	</ui:composition>
+</html>

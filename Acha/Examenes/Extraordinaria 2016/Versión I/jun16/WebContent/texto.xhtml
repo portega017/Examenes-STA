@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="/WEB-INF/templates/layout.xhtml">
+	<ui:define name="pageTitle">NUEVO TEXTO</ui:define>
+	<ui:define name="pageHeader">Inserte los datos</ui:define>
+	<ui:define name="body">
+	<h:form>
+		X: 
+		<h:inputText value="#{textoBean.texto.x}" required="true"/> <br />
+		Y: 
+		<h:inputText value="#{textoBean.texto.y}" required="true" /><br />
+		Fill:
+		<h:inputText value="#{textoBean.texto.fill}" /><br />
+		Texto:
+		<h:inputText value="#{textoBean.texto.letra}" /><br />
+		<h:commandButton action="#{textoBean.addTexto()}" value="AÑADIR" />
+		</h:form>
+	
+	</ui:define>
+	</ui:composition>
+</html>

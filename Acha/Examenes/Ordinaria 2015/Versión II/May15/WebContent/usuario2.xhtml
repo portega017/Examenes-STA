@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="/WEB-INF/templates/layout.xhtml">
+	<ui:define name="pageTitle">Usuario QUINIELA</ui:define>
+	<ui:define name="pageHeader">Bienvenido</ui:define>
+	<ui:define name="body">
+	<h:form>
+	<h:panelGrid border="2" columns="2">
+	<h:outputLabel value="SEMANA" />
+	<h:outputLabel value="AÑO" />
+	<h:inputText value="#{quinielaBean.semana}" />
+	<h:inputText value="#{quinielaBean.anio}" />	
+	</h:panelGrid>
+	
+	<h:commandButton action="#{quinielaBean.getListaSemanaAnio()}" value="Mostrar Partidos" />
+	</h:form>
+	
+	
+	
+	<h3>TABLA EQUIPOS</h3>
+	<h:form>
+	<h:dataTable value="#{quinielaBean.listaSemanaAnio}" var="juego">
+	
+	<h:column>
+	<f:facet name="header"> Equipo I</f:facet>
+	<h:outputText value="#{juego.equipo1Bean.nombre}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header"> Equipo II</f:facet>
+	<h:outputText value="#{juego.equipo2Bean.nombre}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header">Año</f:facet>
+	<h:outputText value="#{juego.anio}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header">Semana</f:facet>
+	<h:outputText value="#{juego.semana}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header">Resultado</f:facet>
+	<h:inputText value="#{quinielaBean.miResultado}" />
+	</h:column>
+	
+	</h:dataTable>
+
+	<h:commandButton action="#{quinielaBean.getResultados()}" value="COMPROBAR QUNIELA" />
+		</h:form>
+		<br />
+	Número de aciertos:	
+		<h:outputText value="#{quinielaBean.i}" />
+
+	</ui:define>
+	</ui:composition>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<!-- 
+		Replace path to template, title, header and body
+		with actual data.
+	 -->
+	<ui:composition template="/WEB-INF/templates/layout.xhtml">
+			<ui:define name="pageTitle">Administrador</ui:define>
+			<ui:define name="pageHeader">¡Bienvenido!</ui:define>
+			<ui:define name="body">
+			<h:form>
+			<h:dataTable value="#{eventoBean.listaeventos}" var="evento">
+			<h:column>
+			<f:facet name="header">Nombre evento</f:facet>
+			<h:outputText value="#{evento.nombreEvento}" />
+			</h:column>
+			
+			<h:column>
+			<f:facet name="header">Lugar Evento</f:facet>
+			<h:outputText value="#{evento.lugar}" />
+			</h:column>
+			
+			<h:column>
+			<f:facet name="header">Estado Evento</f:facet>
+			<h:outputText value="#{eventoBean.mostrarMiEstado(evento.estado)}" />
+			</h:column>
+			<h:column>
+			<f:facet name="header">Accion</f:facet>
+			<h:commandButton action="#{eventoBean.borrarEvento(evento.idEvento)}" value="BORRAR" />
+			</h:column>	
+			
+			<h:column>
+			<f:facet name="header">Accion</f:facet>
+			<h:commandButton action="#{eventoBean.recuentoDias(evento.idEvento)}" value="Recuento" />
+			</h:column>			
+			</h:dataTable>
+			</h:form>
+			
+			<br/>
+	<h:form>
+	<h:panelGrid columns="3" border="3">
+	<f:facet name="NUEVO EVENTO"></f:facet>
+	<h:outputLabel value="Nombre Evento" />
+	<h:outputLabel value="Lugar" />
+	<h:outputLabel value="Accion" />
+	
+	<h:inputText value="#{eventoBean.evento.nombreEvento}" />
+	<h:inputText value="#{eventoBean.evento.lugar}" />
+	<h:commandButton action="#{eventoBean.addEvento()}" value="AÑADIR EVENTO" />	
+	 </h:panelGrid>
+	</h:form>
+<br/>
+	<h:form>
+	<h:panelGrid columns="3" border="3" rendered="#{eventoBean.mostrarRecuento}">
+	<f:facet name="header">RECUENTO</f:facet>
+	<h:outputLabel value="Viernes" />
+	<h:outputLabel value="Sabado" />
+	<h:outputLabel value="Domingo" />
+	
+	<h:outputFormat value="#{eventoBean.cont1}" />
+	<h:outputFormat value="#{eventoBean.cont2}" />
+	<h:outputFormat value="#{eventoBean.cont3}" />	
+	 </h:panelGrid>
+	</h:form>
+	
+
+
+
+			</ui:define>
+	</ui:composition>
+
+</html>

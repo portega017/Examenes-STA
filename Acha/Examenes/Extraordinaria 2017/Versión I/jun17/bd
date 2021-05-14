@@ -1,0 +1,80 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema ExamenSta
+-- -----------------------------------------------------
+DROP SCHEMA IF EXISTS `ExamenSta` ;
+
+-- -----------------------------------------------------
+-- Schema ExamenSta
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `ExamenSta` DEFAULT CHARACTER SET utf8 ;
+USE `ExamenSta` ;
+
+-- -----------------------------------------------------
+-- Table `ExamenSta`.`Usuario`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ExamenSta`.`Usuario` ;
+
+CREATE TABLE IF NOT EXISTS `ExamenSta`.`Usuario` (
+  `idUsuario` INT NOT NULL AUTO_INCREMENT,
+  `nombreUsuario` VARCHAR(45) NOT NULL,
+  `contraseña` VARCHAR(45) NOT NULL,
+  UNIQUE INDEX `nombreUsuario_UNIQUE` (`nombreUsuario` ASC),
+  PRIMARY KEY (`idUsuario`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ExamenSta`.`Evento`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ExamenSta`.`Evento` ;
+
+CREATE TABLE IF NOT EXISTS `ExamenSta`.`Evento` (
+  `idEvento` INT NOT NULL AUTO_INCREMENT,
+  `nombreEvento` VARCHAR(45) NOT NULL,
+  `lugar` VARCHAR(45) NULL,
+  `estado` TINYINT(1) NOT NULL,
+  PRIMARY KEY (`idEvento`),
+  UNIQUE INDEX `Eventocol_UNIQUE` (`nombreEvento` ASC))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ExamenSta`.`Asistencia`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ExamenSta`.`Asistencia` ;
+
+CREATE TABLE IF NOT EXISTS `ExamenSta`.`Asistencia` (
+  `idAsistencia` INT NOT NULL AUTO_INCREMENT,
+  `dia` VARCHAR(45) NOT NULL,
+  `disponibilidad` TINYINT(1) NOT NULL,
+  `Usuario_idUsuario` INT NOT NULL,
+  `Evento_idEvento` INT NOT NULL,
+  PRIMARY KEY (`idAsistencia`),
+  INDEX `fk_Asistencia_Usuario_idx` (`Usuario_idUsuario` ASC),
+  INDEX `fk_Asistencia_Evento1_idx` (`Evento_idEvento` ASC),
+  CONSTRAINT `fk_Asistencia_Usuario`
+    FOREIGN KEY (`Usuario_idUsuario`)
+    REFERENCES `ExamenSta`.`Usuario` (`idUsuario`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_Asistencia_Evento1`
+    FOREIGN KEY (`Evento_idEvento`)
+    REFERENCES `ExamenSta`.`Evento` (`idEvento`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+

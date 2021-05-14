@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="WEB-INF/templates/layout.xhtml">
+	      <ui:define name="tituloDocumento"></ui:define>
+	      <ui:define name="tituloPagina">¡Bienvenido!</ui:define>
+	      <ui:define name="cuerpoDocumento">
+	      	
+	    <h:form>
+	    Insertar DNI:
+	    <h:inputText  value="#{alumnoBean.alumno.dni}" id ="dniAlumno" required="true" requiredMessage="¡Insertar Datos!"></h:inputText>
+	    <h:message for="dniAlumno" style="colorRed"/>
+	    
+	    <br/>
+	     Insertar Asignatura:
+	    <h:inputText  value="#{asignaturaBean.asignatura.nombre}" id ="asignatura" required="true" requiredMessage="¡Insertar Datos!"></h:inputText>
+	   	<h:message for="asignatura" style="colorRed"/>
+	   
+	   	<br/>
+	    Insertar Nota:
+	    <h:inputText  value="#{notaBean.nota.nota}" id ="nota" required="true" requiredMessage="¡Insertar Datos!"></h:inputText>
+	   	<h:commandButton action="#{notaBean.addNota(alumnoBean.alumno.dni,asignaturaBean.asignatura.nombre,notaBean.nota.nota)}" value="Insertar Nota" />
+	  	<h:message for="nota" style="colorRed"/>
+	  	
+	  	 </h:form>
+	  	 
+	  	  <h:outputText value="¡Introduzca los datos correctamente!" rendered="#{notaBean.addCorrecto}" />
+	  	  <br/>
+	  	<h:dataTable value="#{notaBean.obtenerNotasTOTALES()}" var="notas">
+	  	
+	  	<h:column>
+	  	<f:facet name="header">ID NOTA</f:facet>
+	  	<h:outputText value="#{notas.idNota}" />
+	  	</h:column>
+	  	
+	  	<h:column>
+	  	<f:facet name="header">Asignatura</f:facet>
+	  	<h:outputText value="#{notas.asignaturaBean.nombre}" />
+	  	</h:column>
+	  	
+	  	<h:column>
+	  	<f:facet name="header">Alumno</f:facet>
+	  	<h:outputText value="#{notas.alumnoBean.dni}" />
+	  	</h:column>
+	  	
+	  	<h:column>
+	  	<f:facet name="header">Nota</f:facet>
+	  	<h:outputText value="#{notas.nota}" />
+	  	</h:column>
+	  	
+	  	<h:column>
+	  
+	  	<f:facet name="header">Acción</f:facet>
+	  	<h:form>
+	  	<h:commandButton action="#{notaBean.borrarNota(notas.idNota)}" value="Borrar" />
+	  	</h:form>
+	  	</h:column>
+	  	</h:dataTable>
+	  
+	   
+	    
+	     
+
+	      </ui:define>
+      </ui:composition> 
+
+</html>

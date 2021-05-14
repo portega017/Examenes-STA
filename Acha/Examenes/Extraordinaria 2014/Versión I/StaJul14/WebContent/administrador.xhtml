@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="/WEB-INF/templates/layout.xhtml">
+	<ui:define name="pageTitle">Administrador</ui:define>
+	<ui:define name="pageHeader">¡Bienvenido!</ui:define>
+	<ui:define name="body">
+	<br/>
+	<h3>NUEVO ALUMNO:</h3>
+	
+	<h:form>
+	DNI:
+	<h:inputText value="#{alumnoBean.alumno.dni}" id ="dni" required="true" requiredMessage="CAMPO OBLIGATORIO"/>
+	<h:message for="dni" style="color:red" />
+	<br/>
+	NOMBRE:
+	<h:inputText value="#{alumnoBean.alumno.nombre}" id="nom" required="true" requiredMessage="CAMPO OBLIGATORIO"/>
+	<h:message for="nom" style="color:red" />
+	<br/>
+	APELLIDOS:
+	<h:inputText value="#{alumnoBean.alumno.apellidos}" id="apellidos" required="true" requiredMessage="CAMPO OBLIGATORIO"/>
+	<h:message for="apellidos" style="color:red" />
+	<br/>
+	<h:commandButton action="#{alumnoBean.addAlumno()}" value="AÑADIR ALUMNO" />
+	</h:form>
+	<br/>
+	<h3>NUEVA ASIGNATURA</h3>
+	<h:form>
+	NOMBRE ASIGNATURA: 
+	<h:inputText value="#{asignaturaBean.asignatura.nombreAsignatura}" id="asig" required="true" requiredMessage="CAMPO OBLIGATORIO"/>
+	<h:message for="asig" style="color:red" />
+	<br/>
+	
+	<h:commandButton action="#{asignaturaBean.addAsignatura()}" value="AÑADIR ASIGNATURA" />
+	</h:form>
+	
+	<br/>
+	
+	<h3>ALUMNOS DISPONIBLES</h3>
+	<h:form>
+	<h:dataTable value="#{alumnoBean.listaAlumnos}" var="alumno">
+	
+	<h:column>
+	<f:facet name="header">DNI</f:facet>
+	<h:outputText value="#{alumno.dni}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header">Nombre</f:facet>
+	<h:outputText value="#{alumno.nombre}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header">Apellidos</f:facet>
+	<h:outputText value="#{alumno.apellidos}" />
+	</h:column>
+	<h:column>
+	<f:facet name="header">ACCION</f:facet>
+	<h:commandButton action="#{alumnoBean.deleteAlumno(alumno.dni)}" value="BORRAR" />
+	</h:column>
+	
+	</h:dataTable>
+	</h:form>
+	
+	<br/>
+	<h3>ASIGNSTURAS DISPONIBLES</h3>
+	<h:form>
+	<h:dataTable value="#{asignaturaBean.listaAsignatura}" var="asig">
+	
+	<h:column>
+	<f:facet name="header">ID ASIGNARUA</f:facet>
+	<h:outputText value="#{asig.idAsignatura}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header">NOMBRE ASIGNATURA</f:facet>
+	<h:outputText value="#{asig.nombreAsignatura}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header">ACCION</f:facet>
+	<h:commandButton action="#{asignaturaBean.borrarAsignatura(asig.idAsignatura)}" value="BORRAR" />
+	</h:column>
+
+	</h:dataTable>
+	</h:form>
+	
+	</ui:define>
+	</ui:composition>
+</html>

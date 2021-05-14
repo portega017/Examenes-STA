@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="/WEB-INF/templates/layout.xhtml">
+	<ui:define name="pageTitle">CARRITO</ui:define>
+	<ui:define name="pageHeader">Bienvenido al Carrito</ui:define>
+	<ui:define name="body">
+	<h:dataTable value="#{carritoBean.misPedidos}" var="pedido" border="2">
+	<h:column>
+	<f:facet name="header">Producto</f:facet>
+	<h:outputText value="#{pedido.productoBean.nombre}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header">Cantidad</f:facet>
+	<h:outputText value="#{pedido.cantidad}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header">Precio Unitario</f:facet>
+	<h:outputText value="#{pedido.productoBean.precio}" />
+	</h:column>
+	</h:dataTable>
+	<br/>
+	
+	PRECIO TOTAL: 
+	<h:outputText value="#{carritoBean.precioTotal}" /> <br/>
+	
+	
+	<h:outputLink value="tienda.xhtml"> Seguir Comprando</h:outputLink>
+	<h:form>
+	<h:commandButton action="#{carritoBean.pedirDatos()}" value="Comprar" /><br />
+	</h:form>
+	
+	
+	
+	<h:panelGroup rendered="#{carritoBean.comprar}">
+	
+	<h:form>
+	Nombre:
+	<h:inputText value="#{carritoBean.pedido.nombre}" /><br />
+
+	DNI:
+	<h:inputText value="#{carritoBean.pedido.dni}" /><br />
+	
+	Direccion:
+	<h:inputText value="#{carritoBean.pedido.direccion}" /><br />
+	
+	<h:commandButton action="#{carritoBean.addPedido()}" value="ENVIAR PEDIDO" />
+	</h:form>
+	</h:panelGroup>
+	
+	<h:outputText value="#{carritoBean.mostrarINFORMACION()}" rendered="#{carritoBean.mostrarMensaje}"/>
+	</ui:define>
+	</ui:composition>
+</html>

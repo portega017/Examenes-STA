@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+  <display-name>May17</display-name>
+
+  <servlet>
+    <servlet-name>Faces Servlet</servlet-name>
+    <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Faces Servlet</servlet-name>
+    <url-pattern>*.xhtml</url-pattern>
+  </servlet-mapping>
+  
+  <login-config>
+  	<auth-method>BASIC</auth-method>
+  </login-config>
+  <security-role>
+  	<description>Administrador</description>
+  	<role-name>administrador</role-name>
+  </security-role>
+  <security-constraint>
+  	<web-resource-collection>
+  		<web-resource-name>STA</web-resource-name>
+  		<url-pattern>/administrador.xhtml</url-pattern>
+  		<url-pattern>/usuario.xhtml</url-pattern>
+  	</web-resource-collection>
+  	<auth-constraint>
+  		<role-name>administrador</role-name>
+  	</auth-constraint>
+  	<user-data-constraint>
+  		<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+  	</user-data-constraint>
+  </security-constraint>
+  
+  
+  
+  
+  
+  
+  
+  
+</web-app>

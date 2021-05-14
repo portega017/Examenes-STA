@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="/WEB-INF/templates/layout.xhtml">
+	<ui:define name="pageTitle">Alumno</ui:define>
+	<ui:define name="pageHeader">¡Bienvenido!</ui:define>
+	<ui:define name="body">
+	
+	
+	
+	
+	<h:form>
+	INTRODUZCA SU DNI:
+	<h:inputText value="#{alumnoBean.alumno.dni}" />
+	
+	<h:commandButton action="#{alumnoBean.setOk('true')}" value="Ver Notas" />
+	<br />
+	<h:panelGroup rendered="#{alumnoBean.ok}">
+	<h:outputText value="#{alumnoBean.mostrarMensaje()}" style="color:red"/>
+	</h:panelGroup>
+	
+	
+	<h:panelGroup rendered="#{alumnoBean.notas}">
+	
+	<h:dataTable value="#{alumnoBean.getNotasAlumno(alumnoBean.alumno.dni)}" var="nota">
+
+	<h:column>
+	<f:facet name="header"> Nombre Asignatura</f:facet>
+	<h:outputText value="#{nota.asignatura.nombreAsignatura}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header"> DNI ALUMNO</f:facet>
+	<h:outputText value="#{nota.alumno.dni}" />
+	</h:column>
+	
+	
+
+	
+	<h:column>
+	<f:facet name="header"> NOTA</f:facet>
+	<h:outputText value="#{nota.nota}" />
+	</h:column>
+	
+	
+	</h:dataTable>
+	</h:panelGroup>
+	</h:form>
+	
+	
+	
+	</ui:define>
+	</ui:composition>
+</html>

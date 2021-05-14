@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="/WEB-INF/templates/layout.xhtml">
+	<ui:define name="pageTitle">INICIO</ui:define>
+	<ui:define name="pageHeader">Bienvenido</ui:define>
+	<ui:define name="body">
+	<h:form>
+	<h:dataTable value="#{graficoBean.listaREST}" var="grafico" border="2">
+	
+	<h:column>
+	<f:facet name="header">Nombre Fichero</f:facet>
+	<h:outputText value="#{grafico.grafico.nombre}" />
+	</h:column>
+	
+		
+	<h:column>
+	<f:facet name="header">Width</f:facet>
+	<h:outputText value="#{grafico.grafico.width}" />
+	</h:column>
+	
+		
+	<h:column>
+	<f:facet name="header">Height</f:facet>
+	<h:outputText value="#{grafico.grafico.height}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header">Num Circulos</f:facet>
+	<h:outputText value="#{grafico.circulo}" />
+	</h:column>
+		
+	<h:column>
+	<f:facet name="header">Num Texto</f:facet>
+	<h:outputText value="#{grafico.texto}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header">ACCIÓN I</f:facet>
+	<h:commandButton action="#{graficoBean.borrarGrafico(grafico.grafico.idGrafico)}" value="BORRAR" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header">ACCIÓN II</f:facet>
+	<h:commandButton action="#{circuloBean.paginaCircle(grafico.grafico.idGrafico)}" value="ADD NUEVO CIRCULO" />
+	<br/>
+	<h:commandButton action="#{textoBean.paginaText(grafico.grafico.idGrafico)}" value="ADD NUEVO TEXTO" />
+	</h:column>
+	
+	
+	<h:column>
+	<f:facet name="header">ACCIÓN III</f:facet>
+	<h:commandButton action="#{graficoBean.addNuevoGrafico(grafico.grafico.idGrafico)}" value="ADD GRAFICO COMPLETO" />
+	</h:column>
+	</h:dataTable>
+	</h:form>
+	
+	
+	<h:form>
+	NOMBRE:
+	<h:inputText value="#{graficoBean.grafico.grafico.nombre}" /><br/>
+	Height:
+	<h:inputText value="#{graficoBean.grafico.grafico.height}" /><br/>
+	Width:
+	<h:inputText value="#{graficoBean.grafico.grafico.width}" /><br/>
+	
+	<h:commandButton action="#{graficoBean.addGrafico()}" value="AÑADIR" />
+	</h:form>
+	</ui:define>
+	</ui:composition>
+</html>
