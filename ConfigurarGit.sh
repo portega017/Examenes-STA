@@ -25,6 +25,7 @@ sudo apt install git -y
 git config --global credential.helper store
 git config --global user.name "$NOMBRECOMPLETO"
 git config --global user.email "$CORREO"
+git clone https://github.com/portega017/Examenes-STA.git
 
 # Workspace
-mkdir ~/N/$NOMBRE
+mkdir ~/Examenes-STA/$NOMBRE
