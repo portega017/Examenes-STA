@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="/WEB-INF/templates/layout.xhtml">
+	<ui:define name="pageTitle">Libreta de Contactos</ui:define>
+	<ui:define name="pageHeader">Bienvenido a la Agenda</ui:define>
+	<ui:define name="body">
+	<h3>Nuevo Contacto</h3>
+	Nombre:
+	<h:inputText id="nombre" required="true" requiredMessage="¡Introduce el nombre!"  class="campos">
+	</h:inputText>
+	<h:message for="nombre" style="color:red"/>
+	<br />
+	Apellidos:
+	<h:inputText id="apellidos" class="campos">
+	</h:inputText>
+	<br />
+	Alias:
+	<h:inputText id="alias" class="campos">
+	</h:inputText>
+	<br />
+	Correo electrónico:
+	<h:inputText id="email" class="campos">
+	</h:inputText>
+	<br />
+	Teléfono:
+	<h:inputText id="telf" class="campos">
+	</h:inputText>
+	<br />
+	</ui:define>
+	<ui:define name="body2">
+	<h3>Listado de contactos</h3>
+	<table id="tablaContactos">
+	<tr>
+	<th id="cabeceraTabla">Nombre</th>
+	<th id="cabeceraTabla">Apellidos</th>
+	<th id="cabeceraTabla">Alias</th>
+	<th id="cabeceraTabla">Correo electrónico</th>
+	<th id="cabeceraTabla">Teléfono</th>
+	</tr>
+	
+	</table>
+	
+	</ui:define>
+	<ui:define name="body3">
+	<h3>Buscar contacto por nombre</h3>
+
+	
+	</ui:define>
+	</ui:composition>
+</html>
