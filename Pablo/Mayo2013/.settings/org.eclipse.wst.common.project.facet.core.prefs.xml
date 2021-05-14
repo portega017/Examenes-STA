@@ -1,0 +1,15 @@
+<root>
+  <facet id="jpt.jaxb">
+    <node name="libprov">
+      <attribute name="provider-id" value="jaxb-user-library-provider"/>
+    </node>
+    <node name="platform">
+      <attribute name="platform-id" value="eclipselink_2_5"/>
+    </node>
+  </facet>
+  <facet id="jst.jsf">
+    <node name="libprov">
+      <attribute name="provider-id" value="runtime-library-provider"/>
+    </node>
+  </facet>
+</root>

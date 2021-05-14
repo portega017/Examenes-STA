@@ -1,0 +1,10 @@
+@charset "UTF-8";
+ #cabeceraTabla{
+ border-color: black;
+ border: 2px;
+ background-color: AliceBlue;
+ border-collapse: collapse;
+ }
+ #tablaContactos{
+ margin: auto;
+ }
