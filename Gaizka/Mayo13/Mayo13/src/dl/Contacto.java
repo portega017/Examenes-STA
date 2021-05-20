@@ -13,7 +13,7 @@ import javax.persistence.*;
 @NamedQueries({
 	@NamedQuery(name="Contacto.findAll", query="SELECT c FROM Contacto c"),
 	@NamedQuery(name="Contacto.findById", query="SELECT c FROM Contacto c WHERE c.idCONTACTOS = :id"),
-	@NamedQuery(name="Contacto.findByNombre", query="SELECT c FROM Contacto c WHERE c.nombre = :nombre")
+	@NamedQuery(name="Contacto.findByName", query="SELECT c FROM Contacto c WHERE c.nombre = :nombre")
 })
 public class Contacto implements Serializable {
 	private static final long serialVersionUID = 1L;

@@ -19,19 +19,20 @@ public class AgendaBean implements Serializable {
 	private LogicaNegocio ln = new LogicaNegocio();
 	private List<Contacto> lc = new ArrayList<Contacto>();
 	private static final long serialVersionUID = 1L;
+	private int CodError;
 	
 	public void altaContacto(Contacto c) {
-		ln.altaContacto(c);
+		setCodError(ln.altaContacto(c));
+		lc = null;
 	}
 	
 	public void bajaContacto(Contacto c) {
-		ln.bajaContacto(c.getIdCONTACTOS());
+		setCodError(ln.bajaContacto(c.getIdCONTACTOS()));
+		lc = null;
 	}
 
-	public Contacto buscarContacto() {
-		Contacto c = ln.buscarContacto(nombreBuscar);
-		
-		return c;
+	public Contacto buscarContacto(String nombre) {
+		 return ln.buscarContacto(nombre);
 	}
 	
 	public List<Contacto> getContactos() {
@@ -41,11 +42,11 @@ public class AgendaBean implements Serializable {
 		return lc;
 	}
 
-	public String getNombreBuscar() {
-		return nombreBuscar;
+	public int getCodError() {
+		return CodError;
 	}
 
-	public void setNombreBuscar(String nombreBuscar) {
-		this.nombreBuscar = nombreBuscar;
+	public void setCodError(int codError) {
+		CodError = codError;
 	}
 }

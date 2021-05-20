@@ -39,10 +39,22 @@
 		<table>
 			<tr>
 				<th>Nombre</th>
+				<th>Apellidos</th>
+				<th>Alias</th>
+				<th>Email</th>
+				<th>Telefono</th>
 			</tr>
 			<tr>
-				<h:inputText value="" />
+				<td><h:inputText value="#{contactBean.entity.nombre}" /></td>
+				<td><h:inputText value="#{contactBean.entity.apellidos}" /></td>
+				<td><h:inputText value="#{contactBean.entity.alias}" /></td>
+				<td><h:inputText value="#{contactBean.entity.email}" /></td>
+				<td><h:inputText value="#{contactBean.entity.telefono}" /></td>
 			</tr>
+			<tr>
+				<td><h:commandButton action="#{agendaBean.altaContacto(contactBean.entity)}" value="Dar de alta" /></td>
+			</tr>
+			<tr><td>#{agendaBean.codError}</td></tr>
 		</table>
 	</h:form>
 		<h2>Buscar un contacto</h2>
@@ -52,10 +64,10 @@
 				<th>Nombre</th>
 			</tr>
 			<tr>
-				<h:inputText value="#{agendaBean.set}" />
+				<td><h:inputText value="#{contactBean.entity.nombre}" /></td>
 			</tr>
 			<tr>
-				<h:commandButton action="#{agendaBean.bajaContacto()}" value="Buscar" />
+				<td><h:commandButton action="#{agendaBean.buscarContacto(contactBean.entity.nombre)}" value="Buscar" /></td>
 			</tr>
 		</table>
 	</h:form>
