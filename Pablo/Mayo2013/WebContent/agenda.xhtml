@@ -33,7 +33,7 @@
 	</ui:define>
 	<ui:define name="body2">
 	<h3>Listado de contactos</h3>
-	<table id="tablaContactos">
+<!-- 	<table id="tablaContactos">
 	<tr>
 	<th id="cabeceraTabla">Nombre</th>
 	<th id="cabeceraTabla">Apellidos</th>
@@ -42,8 +42,44 @@
 	<th id="cabeceraTabla">Teléfono</th>
 	</tr>
 	
-	</table>
+	</table> -->
+	<h:form>
+		<h:dataTable var="contacto">
+			<h:column>
+			<f:facet name="header">Nombre</f:facet>
+			<h:outputText value="" />
+			</h:column>
+			
+			<h:column>
+			<f:facet name="header">Apellidos</f:facet>
+			<h:outputText value="" />
+			</h:column>
+			
+			<h:column>
+			<f:facet name="header">Alias</f:facet>
+			<h:outputText value="" />
+			</h:column>
+			
+			<h:column>
+			<f:facet name="header">Correo Electrónico</f:facet>
+			<h:outputText value="" />
+			</h:column>
+			
+			<h:column>
+			<f:facet name="header">Teléfono</f:facet>
+			<h:outputText value="" />
+			</h:column>
+			
+			<h:column>
+			<f:facet name="header">Acción</f:facet>
+			<h:commandButton value="Eliminar">
+			</h:commandButton>
+			</h:column>
+		
+		
+		</h:dataTable>
 	
+	</h:form>
 	</ui:define>
 	<ui:define name="body3">
 	<h3>Buscar contacto por nombre</h3>

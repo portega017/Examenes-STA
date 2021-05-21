@@ -19,5 +19,6 @@
 			<attribute name="owner.project.facets" value="jpt.jaxb"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.datatools.connectivity.jdt.DRIVERLIBRARY/mayo2013"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
