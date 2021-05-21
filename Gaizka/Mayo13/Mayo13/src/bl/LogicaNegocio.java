@@ -16,6 +16,9 @@ public class LogicaNegocio {
 	private final int OK = 0;
 	private final int Exists = 1;
 	private final int NullParameter = 2;
+	private final int OK2 = 3;
+	private final int NullParameter2 = 4;
+
 	
 	@PersistenceContext
 	private EntityManager em;
@@ -34,20 +37,20 @@ public class LogicaNegocio {
 	}
 	
 	public int bajaContacto(int idProducto) {
-		Contacto c = em.find(Contacto.class, idProducto);
+		Contacto c = (Contacto) em.createNamedQuery("Contacto.findById").setParameter("id", idProducto).getSingleResult();
 		if(c != null) {
 			em.remove(c);
-			return OK;
+			return OK2;
 		}else {
-			return NullParameter;
+			return NullParameter2;
 		}
 	}
 	
 	public Contacto buscarContacto(String nombre) {
 		Contacto c = em.createNamedQuery("Contacto.findByName",Contacto.class).setParameter("nombre", nombre).getSingleResult();
-		if(c == null) {
-			c = new Contacto();
-		}
+		//if(c == null) {
+			//c = new Contacto();
+		//}
 		return c;
 	}
 	

@@ -11,29 +11,32 @@
 <body> 
 	<h1>Agenda de contactos</h1>
 	<h2>Lista de contactos</h2>
-	<table>
-		 <tr>
-			<th>ID</th>
-			<th>Nombre</th>
-			<th>Apellidos</th>
-			<th>Alias</th>
-			<th>E-Mail</th>
-			<th>Telefono</th>
-		</tr>
-		<ui:repeat var="c" value="#{agendaBean.contactos}">
-			<tr>
-				<td>#{c.idCONTACTOS}</td>
-				<td>#{c.nombre}</td>
-				<td>#{c.apellidos}</td>
-				<td>#{c.alias}</td>
-				<td>#{c.email}</td>
-				<td>#{c.telefono}</td>
-				<td>
-					<h:commandButton action="#{agendaBean.bajaContacto(c)}" value="Eliminar" />
-				</td>
+	<h:panelGroup id="panelLista" rendered="#{agendaBean.renderLista}">
+		<table>
+			 <tr>
+				<th>ID</th>
+				<th>Nombre</th>
+				<th>Apellidos</th>
+				<th>Alias</th>
+				<th>E-Mail</th>
+				<th>Telefono</th>
 			</tr>
-		</ui:repeat>
-	</table>
+			<ui:repeat var="c" value="#{agendaBean.contactos}">
+				<tr>
+					<td>#{c.idCONTACTOS}</td>
+					<td>#{c.nombre}</td>
+					<td>#{c.apellidos}</td>
+					<td>#{c.alias}</td>
+					<td>#{c.email}</td>
+					<td>#{c.telefono}</td>
+					<td>
+						<h:form><h:commandButton action="#{agendaBean.bajaContacto(c)}" value="Eliminar" /></h:form>
+					</td>
+				</tr>
+			</ui:repeat>
+		</table>
+	</h:panelGroup>
+	<h:form><h:commandButton action="#{agendaBean.setRenderTrue()}" value="Mostrar lista de contactos" /></h:form>
 	<h2>Dar de alta un contacto</h2>
 	<h:form>
 		<table>
@@ -45,7 +48,8 @@
 				<th>Telefono</th>
 			</tr>
 			<tr>
-				<td><h:inputText value="#{contactBean.entity.nombre}" /></td>
+				<td><h:inputText id="nombre" value="#{contactBean.entity.nombre}" required="true" requiredMessage="¡ERROR! Tiene que introducir un nombre para el contacto." /></td>
+				<h:message for="nombre" style="color:red"/>
 				<td><h:inputText value="#{contactBean.entity.apellidos}" /></td>
 				<td><h:inputText value="#{contactBean.entity.alias}" /></td>
 				<td><h:inputText value="#{contactBean.entity.email}" /></td>
@@ -54,7 +58,6 @@
 			<tr>
 				<td><h:commandButton action="#{agendaBean.altaContacto(contactBean.entity)}" value="Dar de alta" /></td>
 			</tr>
-			<tr><td>#{agendaBean.codError}</td></tr>
 		</table>
 	</h:form>
 		<h2>Buscar un contacto</h2>
@@ -64,10 +67,32 @@
 				<th>Nombre</th>
 			</tr>
 			<tr>
-				<td><h:inputText value="#{contactBean.entity.nombre}" /></td>
+				<td><h:inputText value="#{agendaBean.buscar}" /></td>
 			</tr>
 			<tr>
-				<td><h:commandButton action="#{agendaBean.buscarContacto(contactBean.entity.nombre)}" value="Buscar" /></td>
+				<td><h:commandButton action="#{agendaBean.buscarContacto(agendaBean.buscar)}" value="Buscar" /></td>
+			</tr>
+			<tr>
+				<h:panelGroup id="panelBuscar" rendered="#{agendaBean.renderBuscar}">
+					<table>
+						<tr>
+							<th>ID</th>
+							<th>Nombre</th>
+							<th>Apellidos</th>
+							<th>Alias</th>
+							<th>E-Mail</th>
+							<th>Telefono</th>
+						</tr>
+						<tr>
+							<td>#{agendaBean.buscado.idCONTACTOS}</td>
+							<td>#{agendaBean.buscado.nombre}</td>
+							<td>#{agendaBean.buscado.apellidos}</td>
+							<td>#{agendaBean.buscado.alias}</td>
+							<td>#{agendaBean.buscado.email}</td>
+							<td>#{agendaBean.buscado.telefono}</td>
+						</tr>
+					</table>
+				</h:panelGroup>
 			</tr>
 		</table>
 	</h:form>
