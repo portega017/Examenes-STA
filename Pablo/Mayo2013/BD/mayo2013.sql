@@ -26,7 +26,9 @@ CREATE TABLE IF NOT EXISTS `mayo2013`.`Contactos` (
   `Alias` VARCHAR(45) NULL,
   `Correo_electronico` VARCHAR(45) NULL,
   `NumTelf` INT(9) NULL,
-  UNIQUE INDEX `NumTelf_UNIQUE` (`NumTelf` ASC))
+  `idContacto` INT NOT NULL AUTO_INCREMENT,
+  UNIQUE INDEX `NumTelf_UNIQUE` (`NumTelf` ASC) VISIBLE,
+  PRIMARY KEY (`idContacto`))
 ENGINE = InnoDB;
 
 

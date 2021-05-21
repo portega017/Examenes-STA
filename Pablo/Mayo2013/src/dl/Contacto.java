@@ -1,4 +1,4 @@
-package model;
+package dl;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -10,9 +10,13 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="Contactos")
-@NamedQuery(name="Contacto.findAll", query="SELECT c FROM Contacto c")
+@NamedQueries({
+@NamedQuery(name="Contacto.findAll", query="SELECT c FROM Contacto c"),
+@NamedQuery(name="Contacto.findNombre", query="SELECT c FROM Contacto c WHERE c.nombre=:nombre")
+})
 public class Contacto implements Serializable {
 	private static final long serialVersionUID = 1L;
+	private int idContacto;
 	private String alias;
 	private String apellidos;
 	private String correo_electronico;
@@ -20,6 +24,17 @@ public class Contacto implements Serializable {
 	private int numTelf;
 
 	public Contacto() {
+	}
+
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	public int getIdContacto() {
+		return this.idContacto;
+	}
+
+	public void setIdContacto(int idContacto) {
+		this.idContacto = idContacto;
 	}
 
 
