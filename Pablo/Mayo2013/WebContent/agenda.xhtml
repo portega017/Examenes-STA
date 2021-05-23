@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="/WEB-INF/templates/layout.xhtml">
+	<ui:define name="pageTitle">Libreta de Contactos</ui:define>
+	<ui:define name="pageHeader">Bienvenido a la Agenda</ui:define>
+	<ui:define name="body">
+	<h3>Nuevo Contacto</h3>
+	
+	<h:form>
+	Nombre:
+	<h:inputText id="nombre" required="true" requiredMessage="¡Introduce el nombre!"  class="campos" value="#{contactBean.contacto.nombre}">
+	</h:inputText>
+	<h:message for="nombre" style="color:red"/>
+	<br />
+	Apellidos:
+	<h:inputText id="apellidos" class="campos" value="#{contactBean.contacto.apellidos}">
+	</h:inputText>
+	<br />
+	Alias:
+	<h:inputText id="alias" class="campos" value="#{contactBean.contacto.alias}">
+	</h:inputText>
+	<br />
+	Correo electrónico:
+	<h:inputText id="email" class="campos" value="#{contactBean.contacto.correo_electronico}">
+	</h:inputText>
+	<br />
+	Teléfono:
+	<h:inputText id="telf" class="campos" value="#{contactBean.contacto.numTelf}">
+	</h:inputText>
+	<br />
+	<h:commandButton action="#{contactBean.addContact()}" value="Añadir" />
+	</h:form>
+	</ui:define>
+	<ui:define name="body2">
+	<h3>Listado de contactos</h3>
+	<h:form>
+	<h:commandButton action="#{contactBean.mostrarTabla()}" value="MOSTRAR CONTACTOS" />
+	</h:form>
+	<h:form>
+		<h:dataTable  value="#{contactBean.listaContacto()}"  var="contacto" rendered="#{contactBean.mostrarTabla()}">
+			<h:column>
+			<f:facet name="header">Nombre</f:facet>
+			<h:outputText value="#{contacto.nombre}" />
+			</h:column>
+			
+			<h:column>
+			<f:facet name="header">Apellidos</f:facet>
+			<h:outputText value="#{contacto.apellidos}" />
+			</h:column>
+			
+			<h:column>
+			<f:facet name="header">Alias</f:facet>
+			<h:outputText value="#{contacto.alias}" />
+			</h:column>
+			
+			<h:column>
+			<f:facet name="header">Correo Electrónico</f:facet>
+			<h:outputText value="#{contacto.correo_electronico}" />
+			</h:column>
+			
+			<h:column>
+			<f:facet name="header">Teléfono</f:facet>
+			<h:outputText value="#{contacto.numTelf}" />
+			</h:column>
+			
+			<h:column>
+			<f:facet name="header">Acción</f:facet>
+			<h:commandButton action="#{contactBean.deleteContact(contacto.idContacto)}" value="Eliminar">
+			</h:commandButton>
+			</h:column>
+		
+		
+		</h:dataTable>
+	
+	</h:form>
+	</ui:define>
+	<ui:define name="body3">
+	<h3>Buscar contacto por nombre</h3>
+
+	Nombre:
+	<h:form>
+	<h:inputText value="#{contactBean.contacto.nombre}" />
+	<h:commandButton action="#{contactBean.mostrarTablaNombre()}" value="BUSCAR" />
+	
+	<h:dataTable value="#{contactBean.listaNombre}" var="contacto" border="2" rendered="#{contactBean.mostrarTablaNombre()}">
+	<h:column>
+	<f:facet name="header"> nombre</f:facet>
+	<h:outputText value="#{contacto.nombre}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header"> Apellidos</f:facet>
+	<h:outputText value="#{contacto.apellidos}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header"> Correo</f:facet>
+	<h:outputText value="#{contacto.correo_electronico}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header"> Alias</f:facet>
+	<h:outputText value="#{contacto.alias}" />
+	</h:column>
+	
+		<h:column>
+	<f:facet name="header"> telefono</f:facet>
+	<h:outputText value="#{contacto.numTelf}" />
+	</h:column>
+	
+		<h:column>
+	<f:facet name="header"> ACCION</f:facet>
+	<h:commandButton action="#{contactBean.deleteContact(contacto.idContacto)}" value="BORRAR" />
+
+	</h:column>
+	</h:dataTable>
+	
+	</h:form>
+	
+	
+	
+	</ui:define>
+	</ui:composition>
+</html>
