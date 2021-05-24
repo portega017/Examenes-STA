@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="/WEB-INF/templates/layout.xhtml">
+	<ui:define name="pageTitle">Administrador</ui:define>
+	<ui:define name="pageHeader">Bienvenido</ui:define>
+	<ui:define name="body">
+	<h3>TABLA EQUIPOS</h3>
+	<h:form>
+	<h:dataTable value="#{juegoBean.listaJuegos}" var="juego">
+	
+	<h:column>
+	<f:facet name="header"> Equipo I</f:facet>
+	<h:outputText value="#{juego.equipo1Bean.nombre}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header"> Equipo II</f:facet>
+	<h:outputText value="#{juego.equipo2Bean.nombre}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header">Año</f:facet>
+	<h:outputText value="#{juego.anio}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header">Semana</f:facet>
+	<h:outputText value="#{juego.semana}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header">Resultado</f:facet>
+	<h:outputText value="#{juego.resultado}" />
+	</h:column>
+	
+	
+	<h:column>
+	<f:facet name="header">Borrar</f:facet>
+	<h:commandButton action="#{juegoBean.borrarJuego(juego.id)}" value="BORRAR"/>
+	</h:column>
+	
+	</h:dataTable>
+	</h:form>
+
+	
+	<h3> NUEVO JUEGO</h3>
+	<h:form>
+	<h:panelGrid border="2" columns="6">
+	<h:outputLabel value="Equipo 1" />
+	<h:outputLabel value="Equipo 2" />
+	<h:outputLabel value="Año" />
+	<h:outputLabel value="Semana" />
+	<h:outputLabel value="Resultado" />
+	<h:outputLabel value="Accion" />
+
+	<h:selectOneMenu value="#{juegoBean.indice1}">
+		<f:selectItems value="#{juegoBean.items}"></f:selectItems>
+	</h:selectOneMenu>
+	<h:selectOneMenu value="#{juegoBean.indice2}">
+		<f:selectItems value="#{juegoBean.items}"></f:selectItems>
+	</h:selectOneMenu>
+
+	<h:inputText value="#{juegoBean.juego.anio}" />
+	<h:inputText value="#{juegoBean.juego.semana}" />
+	<h:inputText value="#{juegoBean.juego.resultado}" />
+	<h:commandButton action="#{juegoBean.addJuego()}" value="AÑADIR PARTIDO" />
+	</h:panelGrid>
+
+	</h:form>
+	
+	
+	
+	</ui:define>
+	</ui:composition>
+</html>

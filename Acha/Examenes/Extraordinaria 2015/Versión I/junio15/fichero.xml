@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<inventario>
+    <producto>
+        <descripcion>1</descripcion>
+        <nombre>1</nombre>
+        <numref>1527847035782</numref>
+        <precio>0.0</precio>
+    </producto>
+    <producto>
+        <descripcion>rojo</descripcion>
+        <nombre>ventilador</nombre>
+        <numref>1527847396368</numref>
+        <precio>3.0</precio>
+    </producto>
+    <producto>
+        <descripcion>verde</descripcion>
+        <nombre>ventilador</nombre>
+        <numref>1527847497723</numref>
+        <precio>5.0</precio>
+    </producto>
+    <producto>
+        <descripcion>verde</descripcion>
+        <nombre>igor</nombre>
+        <numref>1527847519739</numref>
+        <precio>5.0</precio>
+    </producto>
+    <producto>
+        <categoria>
+            <tipo>electronica</tipo>
+        </categoria>
+        <descripcion>r</descripcion>
+        <nombre>igor</nombre>
+        <numref>1527855502876</numref>
+        <precio>3.0</precio>
+    </producto>
+</inventario>

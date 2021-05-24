@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="/WEB-INF/templates/layout.xhtml">
+	<ui:define name="pageTitle">Rectangulo</ui:define>
+	<ui:define name="pageHeader">AÑADA NUEVO RECTANGULO</ui:define>
+	<ui:define name="body">
+	<h:dataTable value="#{formasBean.misFormas}" var="forma">
+	
+	<h:column>
+	<f:facet name="header"> Tipo de Forma</f:facet>
+	<h:outputText value="#{forma.tipo}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header"> Datos de la Forma</f:facet>
+	<h:outputText value="#{forma.misMedias}" />
+	</h:column>
+	
+	</h:dataTable>
+	<h3>NUEVO CIRCULO</h3>
+	<h:form>
+	Height: 
+	<h:inputText value="#{rectanguloBean.rectangulo.height}" /> <br />
+	Width: 
+	<h:inputText value="#{rectanguloBean.rectangulo.width}" /> <br />
+	x: 
+	<h:inputText value="#{rectanguloBean.rectangulo.x}" /> <br />
+	y: 
+	<h:inputText value="#{rectanguloBean.rectangulo.y}" /> <br />
+	
+	<h:commandButton action="#{rectanguloBean.addRect()}" value="AÑADIR Rectangulo" />
+	
+	</h:form>
+	
+	</ui:define>
+	</ui:composition>
+	</html>

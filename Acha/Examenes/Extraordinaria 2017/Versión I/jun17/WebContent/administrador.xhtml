@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="WEB-INF/templates/layout.xhtml">
+	<ui:define name="pageTitle">ADMINISTRADOR</ui:define>
+	<ui:define name="pageHeader">Bienvenido</ui:define>
+	<ui:define name="body">
+	
+	<h:form>
+	Insertar Nombre:
+	<h:inputText value="#{eventoBean.e.nombreEvento}" required="true" />
+	<br />
+	Insertar Lugar:
+	<h:inputText value="#{eventoBean.e.lugar}"  />
+	<br/>
+	<h:commandButton action="#{eventoBean.addEvento()}" value="AÑADIR" />
+	</h:form>
+	
+	
+	<h:form>
+	<h:dataTable value="#{eventoBean.listaEventos}" var="evento">
+	<h:column>
+	<f:facet name="header">Id</f:facet>
+	<h:outputText value="#{evento.idEvento}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header">Nombre Evento</f:facet>
+	<h:outputText value="#{evento.nombreEvento}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header">Lugar</f:facet>
+	<h:outputText value="#{evento.lugar}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header">Estado</f:facet>
+	<h:outputText value="#{eventoBean.mostrarEstado(evento.idEvento)}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header">Accion 1</f:facet>
+	<h:commandButton action="#{eventoBean.borrarEvento(evento.idEvento)}" value="BORRAR" />
+	</h:column>
+
+	<h:column>
+	<f:facet name="header">Accion 2</f:facet>
+	<h:commandButton action="#{votacionesBean.contarVotaciones(evento.idEvento)}" value="Cerrar Evento" />
+	</h:column>
+	</h:dataTable>
+	</h:form>
+
+	<h:panelGrid columns="3" rendered="#{votacionesBean.mostrar1}">
+	
+	<h:outputLabel value="Viernes" />
+	<h:outputLabel value="Sabado" />	
+	<h:outputLabel value="Domingo" />
+	<h:outputText value="#{votacionesBean.miLista.get(0)}" />
+	<h:outputText value="#{votacionesBean.miLista.get(1)}" />
+	<h:outputText value="#{votacionesBean.miLista.get(2)}" />
+	</h:panelGrid>
+	
+	
+	
+	
+	</ui:define>
+	</ui:composition>
+</html>

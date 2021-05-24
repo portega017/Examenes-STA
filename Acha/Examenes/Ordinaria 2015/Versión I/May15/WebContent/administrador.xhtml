@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="/WEB-INF/templates/layout.xhtml">
+	<ui:define name="pageTitle">Administrador</ui:define>
+	<ui:define name="pageHeader">Bienvenido</ui:define>
+	<ui:define name="body">
+	
+	<h:form>
+	<h:dataTable value="#{juegoBean.listaJuegos}" var="juego">
+	<h:column>
+	<f:facet name="header"> ID</f:facet>
+	<h:outputText value="#{juego.id}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header"> EQUIPO 1</f:facet>
+	<h:outputText value="#{juego.equipo1Bean.nombre}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header"> EQUIPO 2</f:facet>
+	<h:outputText value="#{juego.equipo2Bean.nombre}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header"> AÑO</f:facet>
+	<h:outputText value="#{juego.anio}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header"> Semana</f:facet>
+	<h:outputText value="#{juego.semana}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header"> Resultado</f:facet>
+	<h:outputText value="#{juego.resultado}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header"> Accion</f:facet>
+	<h:commandButton action="#{juegoBean.borrarJuego(juego.id)}" value="Borrar Juego" /> 
+	</h:column>
+	
+	</h:dataTable>
+	</h:form>
+	
+	<h:form>
+	Equipo 1:
+	<h:inputText value="#{equipoBean.e1.id}" />
+	<br/>
+	Equipo 2:
+	<h:inputText value="#{equipoBean.e2.id}" />
+	<br/>
+	Año:
+	<h:inputText value="#{juegoBean.juego.anio}" />
+	<br/>
+	Semana:
+	<h:inputText value="#{juegoBean.juego.semana}" />
+	<br/>
+	Resultado:
+	<h:inputText value="#{juegoBean.juego.resultado}" />
+	
+	<h:commandButton action="#{juegoBean.addJuego(equipoBean.e1.id,equipoBean.e2.id)}" value="Añadir" />
+	
+	</h:form>
+	
+	
+	
+	
+	
+	
+	</ui:define>
+	</ui:composition>
+</html>

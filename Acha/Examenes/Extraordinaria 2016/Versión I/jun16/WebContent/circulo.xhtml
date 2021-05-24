@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="/WEB-INF/templates/layout.xhtml">
+	<ui:define name="pageTitle">NUEVO CIRCULO</ui:define>
+	<ui:define name="pageHeader">Inserte los datos</ui:define>
+	<ui:define name="body">
+		<h:form>
+		cx:
+		<h:inputText value="#{circuloBean.circulo.cx}" required="true"/> <br />
+		cy:
+		<h:inputText value="#{circuloBean.circulo.cy}" required="true" /><br />
+		fill:
+		<h:inputText value="#{circuloBean.circulo.fill}" /><br />
+		r:
+		<h:inputText value="#{circuloBean.circulo.r}" /><br />
+		<h:commandButton action="#{circuloBean.addCircle()}" value="AÑADIR" />
+		</h:form>
+	</ui:define>
+	</ui:composition>
+</html>

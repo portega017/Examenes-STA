@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="/resources/templates/layout.xhtml">
+		<ui:define name="tituloPagina">Administración</ui:define>
+		<ui:define name="titulo">Administración de Juegos</ui:define>
+		<ui:define name="contenido">
+			<h:dataTable value="#{listaJuegoMB.lista}" var="juego" border="2">
+				<h:column>
+					<f:facet name="header"><h:outputText value="ID Juego"/></f:facet>
+					#{juego.id}
+				</h:column>
+				<h:column>
+					<f:facet name="header"><h:outputText value="Año"/></f:facet>
+					#{juego.anio}
+				</h:column>
+				<h:column>
+					<f:facet name="header"><h:outputText value="Semana"/></f:facet>
+					#{juego.semana}
+				</h:column>
+				<h:column>
+					<f:facet name="header"><h:outputText value="Equipo 1"/></f:facet>
+					#{juego.equipo1Bean.nombre}
+				</h:column>
+				<h:column>
+					<f:facet name="header"><h:outputText value="Equipo 2"/></f:facet>
+					#{juego.equipo2Bean.nombre}
+				</h:column>
+				<h:column>
+					<f:facet name="header"><h:outputText value="Resultado"/></f:facet>
+					#{juego.resultado}
+				</h:column>
+				<h:column>
+					<f:facet name="header"><h:outputText value="Acciones"/></f:facet>
+					<h:form>
+						<h:commandButton action="#{juegoMB.eliminar(juego.id)}" value="Eliminar" />
+					</h:form>
+				</h:column>
+			</h:dataTable>
+			
+			<br/>
+			<h3>Añadir Juego</h3>
+			<h:form>
+				Año: <h:inputText value="#{juegoMB.anio}" />
+				Semana: <h:inputText value="#{juegoMB.semana}" />
+				Resultado: <h:inputText value="#{juegoMB.resultado}" />
+				<br/>
+				Equipo 1: 
+				<h:selectOneMenu value="#{juegoMB.equipo1}">
+					<f:selectItem itemValue="C. P. BADALONA"/>
+					<f:selectItem itemValue="C. P. y B. COMPLUTENSE"/>
+					<f:selectItem itemValue="C. P. PINO MONTANO"/>
+					<f:selectItem itemValue="C. P. BARQUEROS"/>
+					<f:selectItem itemValue="C. P. SABIÑANIGO"/>
+					<f:selectItem itemValue="D. B. C. P. EL CAARMEN DE ARGUINEGUIN"/>
+					<f:selectItem itemValue="C. P. D'O LUME"/>
+					<f:selectItem itemValue="C. P. BARAKALDO"/>
+					<f:selectItem itemValue="C. P. OYONESA"/>
+					<f:selectItem itemValue="C. P. PETANQUERO"/>
+					<f:selectItem itemValue="A. D. EL ROBLE"/>
+					<f:selectItem itemValue="C. P. EL CID"/>
+					<f:selectItem itemValue="C. P. ROSALES"/>
+					<f:selectItem itemValue="C. P. ALBORÁN"/>
+				</h:selectOneMenu>
+				Equipo 2: 
+				<h:selectOneMenu value="#{juegoMB.equipo2}">
+					<f:selectItem itemValue="C. P. BADALONA"/>
+					<f:selectItem itemValue="C. P. y B. COMPLUTENSE"/>
+					<f:selectItem itemValue="C. P. PINO MONTANO"/>
+					<f:selectItem itemValue="C. P. BARQUEROS"/>
+					<f:selectItem itemValue="C. P. SABIÑANIGO"/>
+					<f:selectItem itemValue="D. B. C. P. EL CAARMEN DE ARGUINEGUIN"/>
+					<f:selectItem itemValue="C. P. D'O LUME"/>
+					<f:selectItem itemValue="C. P. BARAKALDO"/>
+					<f:selectItem itemValue="C. P. OYONESA"/>
+					<f:selectItem itemValue="C. P. PETANQUERO"/>
+					<f:selectItem itemValue="A. D. EL ROBLE"/>
+					<f:selectItem itemValue="C. P. EL CID"/>
+					<f:selectItem itemValue="C. P. ROSALES"/>
+					<f:selectItem itemValue="C. P. ALBORÁN"/>
+				</h:selectOneMenu>
+				
+				<h:commandButton action="#{juegoMB.add()}" value="AñadirJuego" />
+			</h:form>
+			
+		</ui:define>
+	
+	</ui:composition>
+</html>

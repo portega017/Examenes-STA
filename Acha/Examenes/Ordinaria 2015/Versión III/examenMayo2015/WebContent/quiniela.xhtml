@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="/resources/templates/layout.xhtml">
+		<ui:define name="tituloPagina">Quiniela</ui:define>
+		<ui:define name="titulo">Bienvenido Usuario</ui:define>
+		<ui:define name="contenido">
+		<h4>Buscador:</h4>
+			<h:form>
+				Año: <h:inputText value="#{listaJuegoMB.anio}" />
+				Semana: <h:inputText value="#{listaJuegoMB.semana}" />
+				<h:commandButton action="#{listaJuegoMB.buscar()}" value="Buscar" />
+				
+			</h:form>
+			<br/>
+			<h:panelGroup rendered="#{listaJuegoMB.mostrar}">
+			<h:form>
+				<h:dataTable value="#{listaJuegoMB.listaApuestaMB}" var="juego" border="2">
+					<h:column>
+						<f:facet name="header"><h:outputText value="ID Juego"/></f:facet>
+						#{juego.id}
+					</h:column>
+					<h:column>
+						<f:facet name="header"><h:outputText value="Año"/></f:facet>
+						#{juego.anio}
+					</h:column>
+					<h:column>
+						<f:facet name="header"><h:outputText value="Semana"/></f:facet>
+						#{juego.semana}
+					</h:column>
+					<h:column>
+						<f:facet name="header"><h:outputText value="Equipo 1"/></f:facet>
+						#{juego.equipo1}
+					</h:column>
+					<h:column>
+						<f:facet name="header"><h:outputText value="Equipo 2"/></f:facet>
+						#{juego.equipo2}
+					</h:column>
+					<h:column>
+						<f:facet name="header"><h:outputText value="Resultado"/></f:facet>
+						#{juego.resultado}
+					</h:column>
+					<h:column>
+						<f:facet name="header"><h:outputText value="MiResultado"/></f:facet>
+						<h:inputText value="#{juego.apuesta}" />
+					</h:column>		
+					
+				
+				</h:dataTable>
+				<h:commandButton action="#{listaJuegoMB.validar()}" value="Validar apuesta" />
+				
+			</h:form>
+			
+				
+				
+				<h:outputText value="El número de aciertos es: #{listaJuegoMB.acierto}" rendered="#{listaJuegoMB.mostrarApuesta}"/>
+				
+				
+			</h:panelGroup>
+			
+			
+		</ui:define>
+		
+		
+	
+	</ui:composition>
+</html>

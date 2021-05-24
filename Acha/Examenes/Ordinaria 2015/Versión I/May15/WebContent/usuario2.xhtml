@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="/WEB-INF/templates/layout.xhtml">
+	<ui:define name="pageTitle">Usuario</ui:define>
+	<ui:define name="pageHeader">Bienvenido</ui:define>
+	<ui:define name="body">
+	<h:form>
+	Introduzca el Año:
+	<h:inputText value="#{listaQuinielaBean.juego.anio}" id="anio" required="true" requiredMessage="Rellene Campo"/>
+	<h:message for="anio" style="color:red"/>
+	
+	<br/>
+	Introduzca la semana:
+	<h:inputText value="#{listaQuinielaBean.juego.semana}" id="semana" required="true" requiredMessage="Rellene Campo"/> <br/>
+	<h:message for="semana" style="color:red"/>
+	<h:commandButton action="#{ listaQuinielaBean.getPartidosTOTALES()}" value="Buscar Partidos" />
+
+	<h:dataTable value="#{listaQuinielaBean.miQuiniela}" var="partido" rendered="#{listaQuinielaBean.ok}">
+	
+	<h:column>
+	<f:facet name="header">Año</f:facet>
+	<h:outputText value="#{partido.j.anio}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header">Semana</f:facet>
+	<h:outputText value="#{partido.j.semana}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header">Equipo 1</f:facet>
+	<h:outputText value="#{partido.j.equipo1Bean.nombre}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header">Equipo 2</f:facet>
+	<h:outputText value="#{partido.j.equipo2Bean.nombre}" />
+	</h:column>
+	
+	
+	<h:column>
+	<f:facet name="header">Resultados</f:facet>
+	<h:inputText value="#{partido.apuesta}" />
+	</h:column>
+	
+	</h:dataTable>
+	
+	<h:commandButton action="#{listaQuinielaBean.comparar()}" value="Calcular Resultados" rendered="#{listaQuinielaBean.ok}"/>
+	<h:panelGroup rendered="#{listaQuinielaBean.mostrar}" >
+	Número de aciertos:
+	<h:outputText value="#{listaQuinielaBean.con}" />
+
+	
+	</h:panelGroup>
+	
+	</h:form>
+	</ui:define>
+	</ui:composition>
+</html>

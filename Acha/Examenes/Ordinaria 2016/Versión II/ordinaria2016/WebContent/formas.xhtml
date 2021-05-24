@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<!-- 
+		Replace path to template, title, header and body
+		with actual data.
+	 -->
+	<ui:composition template="/WEB-INF/templates/layout.xhtml">
+			<ui:define name="pageTitle">Mis Formas</ui:define>
+			<ui:define name="pageHeader">Bienveido</ui:define>
+			<ui:define name="body">
+			<h:dataTable value="#{formasBean.listaTodasMisFormas}" var="forma" border="3">
+			
+			<h:column>
+			<f:facet name="header">Tipo</f:facet>
+			<h:outputText value="#{forma.tipo}" />
+			</h:column>
+			
+			<h:column>
+			<f:facet name="header">Propiedades</f:facet>
+			<h:outputText value="#{forma.propiedades}" />
+			</h:column>			
+			</h:dataTable>
+			
+			<h:form>
+			<h:commandButton action="#{formasBean.irANuevoCirculo()}" value="CREAR CIRCULO" /><br />
+			<h:commandButton action="#{formasBean.irANuevaRecta()}" value="CREAR RECTA" /><br />
+			<h:commandButton action="#{formasBean.deshacerAccion()}" value="Deshacer" rendered="#{formasBean.mostrarDeshacer}"/>
+			<h:commandButton action="#{formasBean.generarFichero()}" value="generar Fichero SVG" />
+			</h:form>
+			</ui:define>
+	</ui:composition>
+
+</html>

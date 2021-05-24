@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<!-- 
+		Replace path to template, title, header and body
+		with actual data.
+	 -->
+	<ui:composition template="/WEB-INF/templates/layout.xhtml">
+			<ui:define name="pageTitle">Usuario</ui:define>
+			<ui:define name="pageHeader">¡Bienvenido Usuario!</ui:define>
+			<ui:define name="body">
+		<h:form>
+		<h:dataTable value="#{votoBean.listaEventosAbierto}" var="evento" rendered="#{votoBean.mostrarTabla}">
+			<h:column>
+			<f:facet name="header">Nombre evento</f:facet>
+			<h:outputText value="#{evento.nombreEvento}" />
+			</h:column>
+			
+			<h:column>
+			<f:facet name="header">Lugar Evento</f:facet>
+			<h:outputText value="#{evento.lugar}" />
+			</h:column>
+			
+			<h:column>
+			<f:facet name="header">Estado Evento</f:facet>
+			<h:outputText value="#{eventoBean.mostrarMiEstado(evento.estado)}" />
+			</h:column>
+			<h:column>
+			<f:facet name="header">Accion</f:facet>
+			<h:commandButton action="#{votoBean.pulsarBotondias(evento.idEvento)}" value="Seleccionar evento" />
+			</h:column>		
+				
+		</h:dataTable>
+		</h:form>
+		
+	<h:form>
+	<h:panelGroup rendered="#{votoBean.mostrardias}">
+	<h:selectBooleanCheckbox value="#{votoBean.viernes}">Viernes</h:selectBooleanCheckbox>
+	<h:selectBooleanCheckbox value="#{votoBean.sabado}">sabado</h:selectBooleanCheckbox>
+	<h:selectBooleanCheckbox value="#{votoBean.domingo}">Domingo</h:selectBooleanCheckbox>	
+	
+	<br/>	
+	<h:panelGrid columns="3" border="3">
+	<f:facet name="header"><h:outputText value="#{votoBean.mostrarMensajeINFO()}"/></f:facet>
+	<h:outputLabel value="Usuario" />
+	<h:outputLabel value="Contraseña" />
+	<h:outputLabel value="Acción" />
+	<h:inputText value="#{votoBean.usuario.dni}" />
+	<h:inputSecret value="#{votoBean.usuario.contraseña}" />
+	<h:commandButton action="#{votoBean.guardarVotosBD()}" value="Guardar DIAS" />
+	</h:panelGrid>
+	<h:commandButton action="#{votoBean.empezarDeCero()}" value="Comenzar de Nuevo" />
+	</h:panelGroup>
+	</h:form>
+		
+			</ui:define>
+	</ui:composition>
+
+</html>

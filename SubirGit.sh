@@ -5,7 +5,7 @@ echo "¿Cual es tu nombre?"
 read NOMBRE
 
 # Pull
-cd ~/Examenes-ASI/
+cd ~/Examenes-STA/
 git pull
 
 # Workspace

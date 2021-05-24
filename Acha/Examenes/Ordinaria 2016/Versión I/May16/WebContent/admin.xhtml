@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="/WEB-INF/templates/layout.xhtml">
+	<ui:define name="pageTitle">Admin</ui:define>
+	<ui:define name="pageHeader">Bienvenido</ui:define>
+	<ui:define name="body">
+	<h:dataTable value="#{formasBean.misFormas}" var="forma">
+	
+	<h:column>
+	<f:facet name="header"> Tipo de Forma</f:facet>
+	<h:outputText value="#{forma.tipo}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header"> Datos de la Forma</f:facet>
+	<h:outputText value="#{forma.misMedias}" />
+	</h:column>
+	
+	</h:dataTable>
+	
+	<h:form>
+	<h:commandButton action="#{formasBean.irACirculo()}" value="Añadir nuevo Circulo" />
+	<h:commandButton action="#{formasBean.irARectangulo()}" value="Añadir nuevo Rectangulo" />
+	<h:commandButton action="#{formasBean.generaFich()}" value="GENERAR XML" />
+	<h:commandButton action="#{formasBean.deshacer()}" value="Deshacer Accion" rendered="#{formasBean.mostrar}"/>
+	</h:form>
+	</ui:define>
+	</ui:composition>
+</html>

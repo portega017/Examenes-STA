@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+
+<ui:composition template="/WEB-INF/templates/layout.xhtml">
+<ui:define name="pageTitle">Tienda</ui:define>
+<ui:define name="pageHeader">Admin</ui:define>
+<ui:define name="body">
+<h:form>
+<h:dataTable value="#{productoBean.listaProducto}" var="producto">
+
+<h:column>
+<f:facet name="header"> id </f:facet>
+<h:outputText value="#{producto.id}" />
+</h:column>
+
+<h:column>
+<f:facet name="header"> Categoria </f:facet>
+<h:outputText value="#{producto.categoria}" />
+</h:column>
+
+<h:column>
+<f:facet name="header"> Descripcion </f:facet>
+<h:outputText value="#{producto.descripcion}" />
+</h:column>
+
+<h:column>
+<f:facet name="header"> Nombre </f:facet>
+<h:outputText value="#{producto.nombre}" />
+</h:column>
+
+<h:column>
+<f:facet name="header"> Precio </f:facet>
+<h:outputText value="#{producto.precio}" />
+</h:column>
+<h:column>
+<f:facet name="header"> Stock </f:facet>
+<h:outputText value="#{productoBean.comprobarStock(producto.id)}" />
+</h:column>
+
+<h:column>
+<f:facet name="header"> Accion </f:facet>
+<h:commandButton action="#{carritoBean.comprar(producto.id)}" value="Comprar" rendered="#{productoBean.mostrar(producto.stock)}"/> 
+
+</h:column>
+
+
+</h:dataTable>
+<br />
+</h:form>
+<h:outputLink value="carrito.xhtml">Ir al carrito</h:outputLink>
+</ui:define>
+</ui:composition> 
+</html>

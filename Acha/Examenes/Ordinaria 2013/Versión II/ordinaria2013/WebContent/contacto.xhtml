@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="WEB-INF/templates/templates.xhtml">
+	<ui:define name="pageTitle">Contactos</ui:define>
+	<ui:define name="pageHeader">Bienvenido</ui:define>
+	<ui:define name="body">
+	<h:form>
+	Nombre:
+	<h:inputText value="#{contactoBean.contacto.nombre}"/><br />
+	Apellidos
+	<h:inputText value="#{contactoBean.contacto.apellidos}" /> <br/>
+	Alias
+	<h:inputText value="#{contactoBean.contacto.alias}" /><br/>
+	Correo:
+	<h:inputText value="#{contactoBean.contacto.correo}" /><br/>
+	Telefono:
+	<h:inputText value="#{contactoBean.contacto.telefono}" /><br/>
+	<h:commandButton action="#{contactoBean.addContacto()}" value="AÑADIR CONTACTO" />
+	</h:form>
+	
+	<h3>BUSCAR CONTACTO</h3>
+	Nombre:
+	<h:form>
+	<h:inputText value="#{contactoBean.contacto.nombre}" />
+	<h:commandButton action="#{contactoBean.mostrarTablaPARCIAL()}" value="BUSCAR" />
+	
+	<h:dataTable value="#{contactoBean.listaContactosPARCIAL}" var="contacto" border="2" rendered="#{contactoBean.mostrarTabla2}">
+	<h:column>
+	<f:facet name="header"> nombre</f:facet>
+	<h:outputText value="#{contacto.nombre}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header"> Apellidos</f:facet>
+	<h:outputText value="#{contacto.apellidos}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header"> Correo</f:facet>
+	<h:outputText value="#{contacto.correo}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header"> Alias</f:facet>
+	<h:outputText value="#{contacto.alias}" />
+	</h:column>
+	
+		<h:column>
+	<f:facet name="header"> telefono</f:facet>
+	<h:outputText value="#{contacto.telefono}" />
+	</h:column>
+	
+		<h:column>
+	<f:facet name="header"> ACCION</f:facet>
+	<h:commandButton action="#{contactoBean.borrarContacto(contacto.idContacto)}" value="BORRAR" />
+
+	</h:column>
+	</h:dataTable>
+	
+	</h:form>
+	
+	
+	
+	
+
+	<h:form>
+	<h:commandButton action="#{contactoBean.mostrarTabla}" value="MOSTRAR CONTACOS" />
+	</h:form>
+	<h:form>
+	
+	
+	<h:dataTable value="#{contactoBean.listaContactosTOTAL}" var="contacto" border="2" rendered="#{contactoBean.mostrarTabla}">
+	<h:column>
+	<f:facet name="header"> nombre</f:facet>
+	<h:outputText value="#{contacto.nombre}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header"> Apellidos</f:facet>
+	<h:outputText value="#{contacto.apellidos}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header"> Correo</f:facet>
+	<h:outputText value="#{contacto.correo}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header"> Alias</f:facet>
+	<h:outputText value="#{contacto.alias}" />
+	</h:column>
+	
+		<h:column>
+	<f:facet name="header"> telefono</f:facet>
+	<h:outputText value="#{contacto.telefono}" />
+	</h:column>
+	
+		<h:column>
+	<f:facet name="header"> ACCION</f:facet>
+	<h:commandButton action="#{contactoBean.borrarContacto(contacto.idContacto)}" value="BORRAR" />
+
+	</h:column>
+	</h:dataTable>
+	
+	</h:form>
+	
+	</ui:define>
+	</ui:composition>
+</html>

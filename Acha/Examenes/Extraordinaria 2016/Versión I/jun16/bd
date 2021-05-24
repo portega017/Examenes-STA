@@ -1,0 +1,82 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema Jun16
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema Jun16
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `Jun16` DEFAULT CHARACTER SET latin1 ;
+USE `Jun16` ;
+
+-- -----------------------------------------------------
+-- Table `Jun16`.`Grafico`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Jun16`.`Grafico` (
+  `idGrafico` INT(11) NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(45) NOT NULL,
+  `height` INT(11) NOT NULL,
+  `width` INT(11) NOT NULL,
+  PRIMARY KEY (`idGrafico`),
+  UNIQUE INDEX `nombre_UNIQUE` (`nombre` ASC))
+ENGINE = InnoDB
+AUTO_INCREMENT = 9
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `Jun16`.`Circle`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Jun16`.`Circle` (
+  `idCircle` INT(11) NOT NULL AUTO_INCREMENT,
+  `cx` INT(11) NOT NULL,
+  `cy` INT(11) NOT NULL,
+  `r` INT(11) NOT NULL,
+  `fill` VARCHAR(45) NULL DEFAULT NULL,
+  `Grafico_idGrafico` INT(11) NOT NULL,
+  PRIMARY KEY (`idCircle`),
+  INDEX `fk_Circle_Grafico_idx` (`Grafico_idGrafico` ASC),
+  CONSTRAINT `fk_Circle_Grafico`
+    FOREIGN KEY (`Grafico_idGrafico`)
+    REFERENCES `Jun16`.`Grafico` (`idGrafico`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+AUTO_INCREMENT = 9
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `Jun16`.`Text`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Jun16`.`Text` (
+  `idTexto` INT(11) NOT NULL AUTO_INCREMENT,
+  `x` INT(11) NOT NULL,
+  `y` VARCHAR(45) NOT NULL,
+  `fill` VARCHAR(45) NULL DEFAULT NULL,
+  `letra` VARCHAR(45) NOT NULL,
+  `Grafico_idGrafico` INT(11) NOT NULL,
+  PRIMARY KEY (`idTexto`),
+  INDEX `fk_Text_Grafico1_idx` (`Grafico_idGrafico` ASC),
+  CONSTRAINT `fk_Text_Grafico1`
+    FOREIGN KEY (`Grafico_idGrafico`)
+    REFERENCES `Jun16`.`Grafico` (`idGrafico`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+AUTO_INCREMENT = 4
+DEFAULT CHARACTER SET = latin1;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+

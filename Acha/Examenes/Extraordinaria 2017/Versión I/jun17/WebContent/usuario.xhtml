@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="WEB-INF/templates/layout.xhtml">
+	<ui:define name="pageTitle">USUARIO</ui:define>
+	<ui:define name="pageHeader">Bienvenido</ui:define>
+	<ui:define name="body">
+	
+	<h:form>
+
+	<h:dataTable  value="#{eventoBean.listadoEventoESTADO}" var="evento" rendered="#{asistenciaBean.tabla}">
+	<h:column>
+	<f:facet name="header">Id</f:facet>
+	<h:outputText value="#{evento.idEvento}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header">Nombre Evento</f:facet>
+	<h:outputText value="#{evento.nombreEvento}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header">Lugar</f:facet>
+	<h:outputText value="#{evento.lugar}" />
+	
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header">Estado</f:facet>
+	<h:outputText value="#{eventoBean.mostrarEstado(evento.idEvento)}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header">Accion</f:facet>
+	<h:commandButton  action="#{asistenciaBean.seleccionar(evento)}" value="Seleccionar Evento" />
+	</h:column>
+	
+
+	
+	</h:dataTable>	
+
+	</h:form>
+	
+	<h:panelGroup rendered="#{asistenciaBean.mostrar}">
+	<h:form>
+	SELECCIONAR DIAS<br />
+	<h:selectBooleanCheckbox value="#{asistenciaBean.viernes.disponibilidad}" > VIERNES </h:selectBooleanCheckbox>
+		<h:selectBooleanCheckbox value="#{asistenciaBean.sabado.disponibilidad}" > SABADO </h:selectBooleanCheckbox>
+			<h:selectBooleanCheckbox value="#{asistenciaBean.domingo.disponibilidad}" > DOMINGO </h:selectBooleanCheckbox>
+	
+	<br />
+	Usuario:
+	<h:inputText value="#{usuarioBean.usuario.nombreUsuario}" />
+	<br/>
+	contraseña:
+	<h:inputSecret value="#{usuarioBean.usuario.contraseña}" />
+	<h:commandButton action="#{usuarioBean.participar(asistenciaBean)}" value="Participar" />
+	</h:form>
+	<h:outputText value="#{usuarioBean.mostrarSMS()}" rendered="#{usuarioBean.mostrarSMS}" />
+	<h:form>
+	<h:commandButton action="#{usuarioBean.reiniciar(asistenciaBean)}" actionListener="#{asistenciaBean.reiniciarAsistencia()}" value="Reiniciar"  />
+	</h:form>
+	
+	</h:panelGroup>
+	
+
+	</ui:define>
+	</ui:composition>
+</html>

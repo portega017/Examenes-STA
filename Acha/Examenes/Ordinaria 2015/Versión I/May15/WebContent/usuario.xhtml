@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="/WEB-INF/templates/layout.xhtml">
+	<ui:define name="pageTitle">Usuario</ui:define>
+	<ui:define name="pageHeader">Bienvenido</ui:define>
+	<ui:define name="body">
+	<h:form>
+	Introduzca el Año:
+	<h:inputText value="#{juegoBean.juego.anio}" id="anio" required="true" requiredMessage="Rellene Campo"/>
+	<h:message for="anio" style="color:red"/>
+	
+	<br/>
+	Introduzca la semana:
+	<h:inputText value="#{juegoBean.juego.semana}" id="semana" required="true" requiredMessage="Rellene Campo"/> <br/>
+	<h:message for="semana" style="color:red"/>
+	<h:commandButton action="#{juegoBean.getListaPartido()}" value="Buscar Partidos" />
+	
+	<h:panelGroup rendered="#{juegoBean.ok}">
+	<h:dataTable value="#{juegoBean.getListaPartido()}" var="partido">
+	
+	<h:column>
+	<f:facet name="header">Año</f:facet>
+	<h:outputText value="#{partido.anio}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header">Semana</f:facet>
+	<h:outputText value="#{partido.semana}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header">Equipo 1</f:facet>
+	<h:outputText value="#{partido.equipo1Bean.nombre}" />
+	</h:column>
+	
+	<h:column>
+	<f:facet name="header">Equipo 2</f:facet>
+	<h:outputText value="#{partido.equipo2Bean.nombre}" />
+	</h:column>
+	
+	
+	<h:column>
+	<f:facet name="header">Resultados</f:facet>
+	<h:outputText value="#{partido.resultado}" />
+	</h:column>
+	</h:dataTable>
+	
+	</h:panelGroup>
+	
+	</h:form>
+	</ui:define>
+	</ui:composition>
+</html>
