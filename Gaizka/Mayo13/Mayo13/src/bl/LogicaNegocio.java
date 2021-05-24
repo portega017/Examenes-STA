@@ -47,11 +47,12 @@ public class LogicaNegocio {
 	}
 	
 	public Contacto buscarContacto(String nombre) {
-		Contacto c = em.createNamedQuery("Contacto.findByName",Contacto.class).setParameter("nombre", nombre).getSingleResult();
-		//if(c == null) {
-			//c = new Contacto();
-		//}
-		return c;
+		try {
+			Contacto c = em.createNamedQuery("Contacto.findByName",Contacto.class).setParameter("nombre", nombre).getSingleResult();
+			return c;
+		}catch (Exception ex) {
+		}
+		return null;
 	}
 	
 	public List<Contacto> getContactos(){

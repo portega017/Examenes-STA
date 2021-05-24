@@ -22,17 +22,21 @@ public class AgendaBean implements Serializable {
 	private int CodError;
 	private boolean renderLista=false;
 	private boolean renderBuscar=false;
+	private boolean renderMensajeAlta=false;
+	private boolean renderMensajeBuscar=false;
 	private String error;
 	private String buscar;
 	private Contacto buscado;
+	private String buscarError;
 	
 	public void altaContacto(Contacto c) {
 		setCodError(ln.altaContacto(c));
 		if(getCodError() == 0) {
-			setError("Contacto dado de alta satisfactoriamente");
+			setError("Contacto dado de alta satisfactoriamente.");
 		}else if(getCodError() == 1) {
-			setError("El contacto que esta intentado añadir ya existe");
+			setError("El contacto que esta intentando añadir ya existe.");
 		}
+		setRenderMensajeAlta(true);
 		lc = null;
 	}
 	
@@ -45,8 +49,13 @@ public class AgendaBean implements Serializable {
 		Contacto c = ln.buscarContacto(nombre);
 		if(c != null) {
 			setBuscado(c);
+			setRenderBuscar(true);
+			setBuscarError("El contacto que ha buscado es:");
+		}else {
+			setRenderBuscar(false);
+			setBuscarError("El contacto que intenta buscar no existe.");
 		}
-		setRenderBuscar(true);
+		setRenderMensajeBuscar(true);
 	}
 	
 	public List<Contacto> getContactos() {
@@ -108,5 +117,31 @@ public class AgendaBean implements Serializable {
 	public void setBuscado(Contacto buscado) {
 		this.buscado = buscado;
 	}
+
+	public boolean isRenderMensajeAlta() {
+		return renderMensajeAlta;
+	}
+
+	public void setRenderMensajeAlta(boolean renderMensajeAlta) {
+		this.renderMensajeAlta = renderMensajeAlta;
+	}
+
+	public String getBuscarError() {
+		return buscarError;
+	}
+
+	public void setBuscarError(String buscarError) {
+		this.buscarError = buscarError;
+	}
+
+	public boolean isRenderMensajeBuscar() {
+		return renderMensajeBuscar;
+	}
+
+	public void setRenderMensajeBuscar(boolean renderMensajeBuscar) {
+		this.renderMensajeBuscar = renderMensajeBuscar;
+	}
+	
+	
 	
 }

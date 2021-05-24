@@ -59,6 +59,11 @@
 				<td><h:commandButton action="#{agendaBean.altaContacto(contactBean.entity)}" value="Dar de alta" /></td>
 			</tr>
 		</table>
+		<table>
+			<tr>
+				<td style="color:red"><h:panelGroup id="mensajeAlta" rendered="#{agendaBean.renderMensajeAlta}">#{agendaBean.error}</h:panelGroup></td>
+			</tr>
+		</table>
 	</h:form>
 		<h2>Buscar un contacto</h2>
 	<h:form>
@@ -73,6 +78,11 @@
 				<td><h:commandButton action="#{agendaBean.buscarContacto(agendaBean.buscar)}" value="Buscar" /></td>
 			</tr>
 			<tr>
+				<td>
+					<h:panelGroup id="mensajeBuscar" rendered="#{agendaBean.renderMensajeBuscar}">
+						<h:outputText value="#{agendaBean.buscarError}" style="color:red" />
+					</h:panelGroup>
+				</td>
 				<h:panelGroup id="panelBuscar" rendered="#{agendaBean.renderBuscar}">
 					<table>
 						<tr>
