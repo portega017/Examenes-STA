@@ -164,16 +164,11 @@ public int alta(Bean b, int idx) {
 public int alta(Bean b, int idx1, int idx2) {
     try {
         Bean1 b1 = new Bean1(); // Creamos el bean que corresponde a la tabla intermedia 
-        
-        if(em.createNamedQuery("Bean.findByName")
-           .setParameter("nombre", b.getName())
-           .getResultList().isEmpty()) { // Comprobamos que no exista el bean principal en la base de datos
-            
-            if(!em.createNamedQuery("Bean1.findById")
-               .setParameter("id", idx1)
-               .getResultList().isEmpty()) { // Comprobamos que no exista el bean secundario en la base de datos
+        if(!em.createNamedQuery("Bean1.findById")
+              .setParameter("id", idx1)
+              .getResultList().isEmpty()) { // Comprobamos que no exista el bean secundario en la base de datos
               
-                if(!em.createNamedQuery("Bean2.findById")
+             if(!em.createNamedQuery("Bean2.findById")
                    .setParameter("id", idx2)
                    .getResultList().isEmpty()) { // Comprobamos que no exista el bean terciario en la base de datos
             
@@ -203,9 +198,6 @@ public int alta(Bean b, int idx1, int idx2) {
             }else {
                 return Exception;
             }
-        }else {
-            return Exists;
-        }
     }catch(Exception ex) {
         System.err.println(ex.getCause());
         return Exception;
@@ -302,7 +294,7 @@ private boolean renderResp; // Para mostrar la frase que nos indica que ha pasad
 
 private String resp; // La respuesta que queremos mostrar
 
-private List<Bean> l = new ArrayList<Bean>(); // Lista del Bean
+private List<Bean> l; // Lista del Bean (IMPORTANTE No crear el objeto para que se cree como Null y asi aparezca el desplegable de primeras)
 
 private int idxAut; // Indice para SelectOneMenu
 ```
@@ -431,7 +423,7 @@ public void alta(Bean b) {
 <h:selectOneMenu id="id" value="#{appBean.idx}" required="true" requiredMessage="¡ERROR!" >
     
 <!--El valor del desplegable sera la lista de los elementos, la etiqueta que aparecera sera el nombre de cada elemento (Para referenciar a cada elemento usaremos el atributo var)(Será como una especie de i en un for, representa cada elemento que se está recorriendo) Por ultimo, el valor de ese elemento será el bean del elemento que estamos seleccionando (Lo sacamos de la lista con el indexOf)-->
-    <f:selectItems value="#{appBean.elementos}" var="e" itemLabel="#{e.nombre}" itemValue="#{appBean.elementos.indexOf(e)}"></f:selectItems>
+    <f:selectItems value="#{appBean.elementos}" var="e" itemLabel="#{e.nombre}" itemValue="#{e.id}"></f:selectItems>
 
 </h:selectOneMenu>
 <br />
