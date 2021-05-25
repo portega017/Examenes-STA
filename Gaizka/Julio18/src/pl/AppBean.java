@@ -36,7 +36,6 @@ public class AppBean implements Serializable {
 	private boolean renderPubResp;
 	private String pubResp;
 	
-	private List<Integer> lafp;
 	
 	public void altaAutor(Author a) {
 		setCodErrorAut(ln.altaAutor(a));
@@ -68,7 +67,7 @@ public class AppBean implements Serializable {
 	}
 	
 	public void altaPublicacion(Publication p) {
-		setCodErrorPub(ln.altaPublicacion(p,idxRev,lafp));
+		setCodErrorPub(ln.altaPublicacion(p,idxRev,idxAut));
 		if(getCodErrorPub() == 0) {
 			setPubResp("Publicacion dada de alta satisfactoriamente.");
 		}else {
@@ -84,9 +83,6 @@ public class AppBean implements Serializable {
 		return la;
 	}
 
-	public void authorToList(int autId) {
-		lafp.add(autId);
-	}
 
 	public int getCodErrorAut() {
 		return codErrorAut;

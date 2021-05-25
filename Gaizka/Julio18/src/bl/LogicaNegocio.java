@@ -57,15 +57,24 @@ public class LogicaNegocio {
 		return em.createNamedQuery("Journal.findAll", Journal.class).getResultList();
 	}
 	
-	public int altaPublicacion(Publication p, int idxRevista, List<Integer> autList) {
+	public int altaPublicacion(Publication p, int idxRevista, int idxAut) {
 		try {
+			Relation r = new Relation();
 			if(!em.createNamedQuery("Journal.findById").setParameter("id", idxRevista).getResultList().isEmpty()) {
-				p.setJournalBean((Journal) em.createNamedQuery("Journal.findById").setParameter("id", idxRevista).getSingleResult());
-				em.persist(p);
-				for(int i=0;i<autList.size();i++) {
-					anadirAutorAPub(p, autList.get(i));
+				if(!em.createNamedQuery("Author.findById").setParameter("id", idxAut).getResultList().isEmpty()) {
+					if(em.createNamedQuery("Publication.findByName").setParameter("nombre", p.getTitle()).getResultList().isEmpty()) {
+						p.setJournalBean((Journal) em.createNamedQuery("Journal.findById").setParameter("id", idxRevista).getSingleResult());
+						em.persist(p);
+					}else {
+						p = (Publication) em.createNamedQuery("Publication.findByName").setParameter("nombre", p.getTitle()).getSingleResult();
+					}
+					r.setAuthorBean((Author) em.createNamedQuery("Author.findById").setParameter("id", idxAut).getSingleResult());
+					r.setPublicationBean((Publication) p);
+					em.persist(r);	
+					return OK;
+				}else {
+					return Exception;
 				}
-				return OK;
 			}else {
 				return Exception;
 			}
@@ -74,20 +83,7 @@ public class LogicaNegocio {
 			return Exception;
 		}	
 	}
-	
-	public int anadirAutorAPub(Publication p, int autId) {
-		Relation r = new Relation();
-		if(!em.createNamedQuery("Author.findById").setParameter("id", autId).getResultList().isEmpty()) {	
-			Author aut = (Author) em.createNamedQuery("Author.findById").setParameter("id", autId).getSingleResult();
-			r.setAuthorBean((Author) aut);
-			r.setPublicationBean((Publication) p);
-			em.persist(r);
-			return OK;
-		}else {
-			return Exception;
-		}
-	}
-	
+		
 	public List<Author> getAutor() {
 		return em.createNamedQuery("Author.findAll", Author.class).getResultList();
 	}
