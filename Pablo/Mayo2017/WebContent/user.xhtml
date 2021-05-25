@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<ui:composition template="/WEB-INF/templates/layout.xhtml">
+	<ui:define name="TituloPagina">Página de Usuario</ui:define>
+	<ui:define name="CabeceraPagina">
+		<h1>Mis tareas</h1>
+	</ui:define>
+	<ui:define name="Contenido">
+
+		<h:form>
+			<h3>Alta Categorías</h3>
+
+	Nombre de la categoría:
+	<h:inputText value="" />
+
+			<h:commandButton action="estilo.css" value="Añadir Categoría" />
+		</h:form>
+		<h:form>
+			<h3>Alta Tareas</h3>
+	
+	Nombre de la tarea:
+	<h:inputText value="#{tareasBean.tarea.nombreTareas}" />
+			<h:commandButton action="#{tareasBean.addTarea(tareasBean.tarea.nombreTareas)}" value="Añadir Tarea" />
+		</h:form>
+		<h:form>
+			<h3>Baja Categorías</h3>
+
+	Nombre de la categoría:
+	<h:inputText value="" />
+			<h:commandButton action="estilo.css" value="Eliminar Categoría" />
+		</h:form>
+		<h:form>
+			<h3>Baja Tareas</h3>
+
+	Nombre de la tarea:
+	<h:inputText value="#{tareasBean.tarea.nombreTareas}" />
+			<h:commandButton action="estilo.css" value="Eliminar Tarea" />
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+</html>
