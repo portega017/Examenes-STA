@@ -8,19 +8,19 @@
 
 3. Añadimos las entradas al standalone/configuration/standalone.xml. IMPORTANTE No olvidarse de la parte de driver, sino no funciona nada.
 
-   ![image-20210525093145338](/home/g2jz/.config/Typora/typora-user-images/image-20210525093145338.png)
+   ![](https://i.imgur.com/ORHwStD.png)
 
    
 
 4. Añadimos  las entradas al persistence.xml (Dentro de los paquetes de  JAVA, carpeta META-INF)
 
-   ![image-20210525093226514](/home/g2jz/.config/Typora/typora-user-images/image-20210525093226514.png)
+   ![](https://i.imgur.com/qayp8Mg.png)
 
    
 
 5. Añadimos el modulo a la ruta: modules/system/layers/base/com/mysql/main. IMPORTANTE Buscar que exista, que la ruta corresponde y que es la misma versión, si no no lo encuentra y pasan cosas.
 
-   ![image-20210525093021052](/home/g2jz/.config/Typora/typora-user-images/image-20210525093021052.png)
+   ![](https://i.imgur.com/lZooYrV.png)
 
    
 
@@ -33,7 +33,7 @@
 9. En project facets:
 
    1. Activar CDI (Para EJB). En further configuration clickar en que genere beans.xml.
-   2. Cambiar version de JAVA a 11.
+   2. Cambiar versión de JAVA a 11.
    3. Activar Java Server Faces (Para JSF, XHTML).
    4. Activar JPA. En further configuration elegir library provided by runtime.
 
@@ -48,18 +48,26 @@
 ### Data Access Layer
 
 1. New > Create JPA entities from tables. 
-
 2. De-seleccionar incluirlas en persistence.xml
-
 3. Quitar relaciones bidireccionales que no correspondan.
-
 4. Paquete dl.
-
 5. Mirar que todos los tipos de datos correspondan.
-
 6. Named queries. Hacer siempre la de ID (Se usa casi siempre).
 
-   
+### Anotación Transient
+
+Nos permite añadir un campo a un JPA entity pero sin que se persista en la base de datos. 
+
+Ejemplo. Queremos tener un método que devuelva el nombre abreviado de una persona (Para mostrarlo por ejemplo), pero, en la BD lo que queremos es añadir el nombre completo.
+
+```java
+@Transient // Nos permite indicar que no queremos que este modulo persista en la BD
+public String getNameAbrev() {
+return name.substring(0,1).concat("."); // Cogemos la primera letra del nombre y le concatenamos un punto al final
+}
+```
+
+
 
 ### Business Layer
 
@@ -109,7 +117,7 @@ public int alta(Bean b) {
 }
 ```
 
-##### Alta (Con una unica FK)
+##### Alta (Con una única FK)
 
 ```java
 // Le pasas el bean que quieres dar de alta y el indice de la FK
@@ -149,7 +157,7 @@ public int alta(Bean b, int idx) {
 
 
 
-##### Alta (Relacion n a n con tabla intermedia)
+##### Alta (Relación n a n con tabla intermedia)
 
 ```java
 // Le pasas el bean que quieres dar de alta y los dos indices de las FK
@@ -314,7 +322,7 @@ public List<Bean> getBean() {
 }
 ```
 
-##### Alta (Sin claves foraneas o selectMenus)
+##### Alta (Sin claves foráneas o selectMenus)
 
 ```java
 // Le pasas el bean que quieres dar de alta
@@ -337,7 +345,7 @@ public void alta(Bean b) {
 }
 ```
 
-##### Alta (Con claves foraneas o selectMenu)
+##### Alta (Con claves foráneas o selectMenu)
 
 ```java
 // Le pasas el bean que quieres dar de alta
@@ -433,26 +441,286 @@ public void alta(Bean b) {
 
 
 
+## REST
+
+### JaxRsActivador
+
+Hay que incluirlo en entornos Java EE , lo definiremos en el paquete en el que queremos usar REST.
+
+```java
+package bl;
+
+// Importantes los imports correcto para no liarla
+import javax.ws.rs.ApplicationPath;
+import javax.ws.rs.core.Application;
+
+// Indicamos la ruta de la que van a colgar todos los recursos REST
+@ApplicationPath("/rest")
+public class JaxRsActivator extends Application{ // Importante que extienda de Application
+
+}
+```
+
+
+
+### Proveedor
+
+#### Clase
+
+```java
+package bl;
+
+// Cuidado con los imports (No coger los de suns)
+import java.io.IOException;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.core.MediaType;
+
+@Path("/api") // Indicamos el path que queremos para acceder a la clase
+public class ApiRest {
+	
+    // Atributo para definir el protocolo de transporte por REST
+    private final String protocoloProveedor = MediaType.<el que sea>;
+
+}
+```
+
+#### Get Bean
+
+```java
+@GET // Indicamos que se accede por GET
+@Produces(protocoloProveedor) // Indicamos que produce <el protocolo que sea>
+@Path("/getbeans") // Indicamos el path para acceder a este metodo
+
+public Beans getBeans() {
+    
+    // Creamos el objeto con el que accederemos a los datos (En este caso la clase Database es la del Marshaller, Unmarshaller, pero se puede hacer con JPA)
+    Database db = new Database(); 
+    
+    // Try catch (En este caso es por JAXB que propaga la excepcion si algo sale mal)
+    try {
+        return db.cargaDatos(); // Devolvemos la lista de beans
+    }catch (JAXBException e) {
+        return new Beans(); // Devolvemos una lista vacia
+    }
+}
+```
+
+#### Post Bean
+
+```java
+@POST // Indicamos que se accede por POST
+@Consumes(protocoloProveedor) // Indicamos que consume <el protocolo que sea>
+@Produces(MediaType.TEXT_PLAIN) // Indicamos que produce <el protocolo que sea>
+@Path("/altabean") // Indicamos el path para acceder a este metodo
+public String altaBean(Bean b) { // Le pasamos el bean y devuelve un String con el estado de la operación
+    Database db = new Database(); // Igual que arriba
+    try {
+        if(b != null) {
+            // Escribimos el bean en el alamcenamiento
+            db.escribir(b);
+            
+            // Devolvemos una frase en la que indicamos que ha ido bien y los atributos del bean.
+            return "El producto " + b.getNombre() + " con precio " + b.getPrecio() + "€" + " ha sido dado de alta en la categoria " + b.getTipo();
+        }else {
+            return "No hay producto para dar de alta";
+        }
+	// Excepciones
+    }catch (JAXBException e){
+        return "No se ha podido dar de alta el producto";
+    }catch (IOException e) {
+        return "IOException";
+    }
+}
+```
+
+
+
+### Consumidor
+
+#### Clase
+
+```java
+package pl.modelo;
+
+// Cuidado con los imports
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.Produces;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+import dl.Productos;
+import dl.Producto;
+
+public class Consumidor {
+
+    // Definimos la URL del metodo que se llama por POST
+	private final String altaProdUrl = "http://localhost:8080/Practica/rest/api/altabean";
+    
+    // Definimos la URL del meto que se llama por GET
+	private final String getProdUrl = "http://localhost:8080/Practica/rest/api/getbeans";
+    
+    // Definimos el protocolo de transporte
+	private final String protocoloConsumidor = MediaType.APPLICATION_JSON;
+
+}
+```
+
+
+
+#### GET Bean
+
+```java
+@GET // Indicamos que se accede por GET
+@Consumes(protocoloConsumidor) // Indicamos que consume <el protocolo que sea>
+public Productos getBeans() { // Devuelve la lista de beans
+    return ClientBuilder //Clase que nos permite hacer clientes HTTP
+        .newClient() // Indicamos que queremos crear un nuevo cliente HTTP
+        .target(getProdUrl) // Indicamos la URL a la que queremos que apunte
+        .request(protocoloConsumidor) // Indicamos el tipo de datos que vamos a pedirle
+        .get(Productos.class); // Indicamos el metodo HTTP por el que queremos acceder (En este caso GET). Entre parentesis irá la clase a la que queremos convertir el Response del servidor
+}
+```
+
+
+
+#### POST Bean
+
+```java
+@POST // Indicamos que se accede por POST
+@Produces(protocoloConsumidor) // Indicamos que produce <el protocolo que sea>
+public String altaProducto(Producto p) {
+    String s;  // Creamos una String que sera la frase de estado
+/*Objeto de tipo Response*/ Response resp = ClientBuilder //Clase que nos permite hacer clientes HTTP
+        .newClient() // Indicamos que queremos crear un nuevo cliente HTTP
+        .target(altaProdUrl) // Indicamos la URL a la que queremos que apunte
+        .request() // Indicamos que vamos a hacer un requests
+        .post(Entity.entity(p, protocoloConsumidor)); // Indicamos que vamos a acceder por menotodo post (Indicamos entre parentesis que le vamos a mandar por post y en que formato) (Hay que meter estas dos cosas dentro del objeto Entity.entity())
+    
+    if(resp.getStatus() == 200) { // Comprobamos que haya sido un 200 OK
+        s = resp.readEntity(String.class); // Leeemos el body del Response para saber que nos ha respondido el servidor REST (Hay que indicar entre parentesis a que tipo de dato queremos que nos lo convierta)
+    }else {
+        s = "No se ha podido dar de alta el producto."; // Frase de error
+    }
+    return s; // Devolvemos la String de respuesta
+}
+```
+
+
+
 ## Seguridad
 
+### Método AplicationRealm (Usuarios y contraseñas en texto plano)
+
+1. Vamos a la carpeta del WildFly y ejecutamos bin/add-user.sh
+
+2. Para referenciar en Java cuales son los métodos que se van a poder usar con determinados roles.
+
+   ```java
+   // Solo permite acceder a los usuarios que pertenezcan a los roles que indiques
+   @RolesAllowed("list-of-roles")
+   
+   // Permite a todos los usuarios acceder
+   @PermitAll
+   
+   // Deniega el acceso a todos los usuarios
+   @DenyAll
+   ```
+
+   
+
+### Método Security Domain
+
+1. Creamos el archivo WEB-INF/jboss-web.xml en el WebContent de nuestro proyecto.
+
+   ![](https://i.imgur.com/0qxnm3n.png)
+
+   
+
+2. Para referenciar en Java cuales son los métodos que se van a poder usar con determinados roles.
+
+```java
+import org.jboss.ejb3.annotation;
+
+@SecurityDomain("fichero-local") // Tiene que ser el mismo que en el jboss-web.xml
+```
 
 
 
+#### Método Security Domain sin BD (Usuarios y contraseñas en texto plano)
+
+1. En la carpeta del Wildfly añadimos al standalone/configuration/standalone.xml las siguientes lineas. NombreDeTuSecDom tiene que coincidir con el nombre en jboss-web.xml.
+
+   ![](https://i.imgur.com/KjpXhkF.png)
+
+   
+
+2. Tendremos que crear los ficheros que contendrán los usuarios y contraseñas y los grupos de cada usuario.
+
+   1. user.properties: Usuarios y contraseñas.
+   2. roles.properties: Grupos.
+
+   ![](https://i.imgur.com/e4LeArQ.png)
+
+   
+
+#### Método Security Domain con BD (Sirve para que los usuarios y contraseñas estén guardados en la BD en vez de en un archivo de texto plano )
+
+1. En la carpeta del Wildfly añadimos al standalone/configuration/standalone.xml las siguientes lineas. NombreDeTuSecDom tiene que coincidir con el nombre en jboss-web.xml.
+
+   ![](https://i.imgur.com/mqdLPnW.png)
+
+
+
+### Asignar los permisos a grupos en base a URLs
+
+![](https://i.imgur.com/kg61G8j.png)
+
+
+
+### Utilizar el nombre del usuario autenticado
+
+#### Desde JSF:
+
+```html
+	#{request.RemoteUser}
+```
+
+#### Desde Beans:
+
+```java
+ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+
+return context.getRemoteUser();
+```
+
+
+
+## Consideraciones
+
+- Escribir **lista=null en el bean** para que se actualice todo. (Por ejemplo los desplegables).
+
+- Los **h:commandButton siempre dentro de un h:form**, si no no va a funcionar (Nos podemos fijar en que no funciona viendo que la pagina no recarga o en el navegador en inspeccionar -> Network).
+
+  
 
 ## Problemas
 
-- Si en el navegador en inspeccionar podemos leer el codigo igual que nuestro xhtml es que no se está interpretando, esto es porque no está activado JSF en project facets.
+- Siempre que trabajamos con métodos que conectan con la BD y nos dan errores **mirar al final del todo de la traza** (Es donde están los sqlErrors)
 
-- Importante escribir listas=null en el bean para que se actualice todo. (Por ejemplo los desplegables).
+- Siempre que ponga **errores con módulos** y tal volver a **repasar** los primero pasos de la configuración, todo lo que tenga que ver con **archivos de configuración.**
 
-- Importante los h:commandButton siempre detro de un h:form, si no no va a funcionar (Nos podemos fijar en que no funciona viendo que la pagina no recarga o en el navegador en inspeccionar -> Network).
+- **Named Parameter not Bound.** Estas haciendo una named query que necesita parámetros sin pasarle ningún parámetro.
 
-- Siempre que trabajamos con metodos que conectan con la BD y nos dan errores mirar al final del todo de la traza (Es donde estan los sqlSyntaxErrors)
+- **No se puede restablecer la vista.** Con recargar la pagina, full publish o reiniciar el wildfly se arregla.
 
-- Siempre que ponga errores con modulos y tal volver a repasar los primero pasos de la configuracion, todo lo que tenga que ver con archivos de configuracion.
-
-- Named Parameter not Bound. Estas haciendo una named query que necesita parametros sin pasarle ningun parametro.
-
-- No se puede restablecer la vista. Con recargar la pagina, full publish o reinciar el wildfly se arregla.
+- Si en el navegador en inspeccionar podemos leer el código igual que nuestro XHTML es que no se está interpretando, esto es porque no está activado JSF en project facets.
 
   
