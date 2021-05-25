@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<meta content="text/html"></meta>
+	<title>Administrador</title>
+</h:head> 
+<body> 
+	<h1>Administrador</h1>
+	<h2>Dar de alta autor</h2>	
+	<h:form>
+		<table>
+			<tr>
+				<td>Nombre</td>
+				<td>
+					<h:inputText id="nameAuth" value="#{authorBean.entity.name}" required="true" requiredMessage="¡ERROR! Tienes que introducir un nombre para el autor" />
+					<br />
+					<h:message for="nameAuth" style="color:red"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Apellido</td>
+				<td><h:inputText id="surnameAuth" value="#{authorBean.entity.surname}" /></td>
+			</tr>
+			<tr>
+				<td><h:panelGroup rendered="#{appBean.renderAutResp}" style="color:red">
+					<h:outputText value="#{appBean.autResp}" />
+				</h:panelGroup></td>
+			</tr>
+			<tr>
+				<td><h:commandButton action="#{appBean.altaAutor(authorBean.entity)}" value="Añadir" /></td>
+			</tr>
+		</table>
+	</h:form>
+	<h2>Dar de alta revista</h2>	
+	<h:form>
+		<table>
+			<tr>
+				<td>Nombre</td>
+				<td>
+					<h:inputText id="nameRev" value="#{journalBean.entity.name}" required="true" requiredMessage="¡ERROR! Tienes que introducir un nombre para la revista"/>
+					<br />
+					<h:message for="nameRev" style="color:red"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Abreviatura</td>
+				<td><h:inputText id="abrev" value="#{journalBean.entity.abbr}" /></td>
+			</tr>
+			<tr>
+				<td><h:panelGroup rendered="#{appBean.renderRevResp}" style="color:red">
+					<h:outputText value="#{appBean.revResp}" />
+				</h:panelGroup></td>
+			</tr>
+			<tr>
+				<td><h:commandButton action="#{appBean.altaRevista(journalBean.entity)}" value="Añadir" /></td>
+			</tr>
+		</table>
+	</h:form>
+	<h2>Dar de alta publicación</h2>	
+	<h:form>
+		<table>
+			<tr>
+				<td>Titulo</td>
+				<td>
+					<h:inputText id="namePub" value="#{publicationBean.entity.title}" required="true" requiredMessage="¡ERROR! Tienes que introducir un nombre para la publicación" />
+					<br />
+					<h:message for="namePub" style="color:red"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Año</td>
+				<td>
+					<h:inputText id="year" value="#{publicationBean.entity.year}" required="true" requiredMessage="¡ERROR! Tienes que introducir un año para la publicación" />
+					<br />
+					<h:message for="year" style="color:red"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Revista</td>
+				<td>
+					<h:selectOneMenu id="revistas" value="#{appBean.idxRev}" required="true" requiredMessage="¡ERROR! Tienes que seleccionar una revista para la publicación" >
+						<f:selectItem itemValue="#{null}" itemLabel="-- Seleccione uno --" itemDisabled="true" noSelectionOption="true"/>
+						<f:selectItems value="#{appBean.revista}" var="revistas" itemLabel="#{revistas.name}" itemValue="#{appBean.revista.indexOf(revistas)}"></f:selectItems>
+					</h:selectOneMenu>
+					<br />
+					<h:message for="revistas" style="color:red"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Autor</td>
+				<td>
+					<h:selectOneMenu id="autor" value="#{appBean.idxAut}" required="true" requiredMessage="¡ERROR! Tienes que seleccionar un autor para la publicación" >
+						<f:selectItem itemValue="#{null}" itemLabel="-- Seleccione uno --" itemDisabled="true" noSelectionOption="true"/>
+						<f:selectItems value="#{appBean.autor}" var="autores" itemLabel="#{autores.name}" itemValue="#{appBean.autor.indexOf(autores)}"></f:selectItems>
+					</h:selectOneMenu>
+					<br />
+					<h:message for="autor" style="color:red"/>
+				</td>
+			</tr>
+			<tr>
+				<td><h:panelGroup rendered="#{appBean.renderPubResp}" style="color:red">
+					<h:outputText value="#{appBean.pubResp}" />
+				</h:panelGroup></td>
+			</tr>
+			<tr>
+				<td><h:commandButton action="#{appBean.altaPublicacion(publicationBean.entity)}" value="Añadir" /></td>
+			</tr>
+		</table>
+	</h:form>
+</body> 
+</html>
