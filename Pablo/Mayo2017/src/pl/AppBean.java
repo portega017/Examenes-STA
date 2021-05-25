@@ -2,12 +2,8 @@ package pl;
 
 import java.io.Serializable;
 
-import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
-
-import bl.Servicios;
-import dl.Tarea;
 
 @Named
 @SessionScoped
@@ -16,17 +12,37 @@ public class AppBean implements Serializable {
 	/**
 	 * 
 	 */
-	@EJB
-	private Servicios miEjb = new Servicios();
-
 	private static final long serialVersionUID = 1L;
+	private boolean renderTablaComb=true;
+	private boolean renderBotonParar=false;
 
 	public AppBean() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	
+	public void pulsarBotonInicio() {
+		setRenderTablaComb(false);
+		setRenderBotonParar(true);
+	}
+	public void pulsarBotonParar() {
+		setRenderBotonParar(false);
+		setRenderTablaComb(true);
+	}
 
+	public boolean isRenderTablaComb() {
+		return renderTablaComb;
+	}
 
-	
+	public void setRenderTablaComb(boolean renderTablaComb) {
+		this.renderTablaComb = renderTablaComb;
+	}
+
+	public boolean isRenderBotonParar() {
+		return renderBotonParar;
+	}
+
+	public void setRenderBotonParar(boolean renderBotonParar) {
+		this.renderBotonParar = renderBotonParar;
+	}
+
 }

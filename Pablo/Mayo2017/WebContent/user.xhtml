@@ -7,40 +7,128 @@
 <ui:composition template="/WEB-INF/templates/layout.xhtml">
 	<ui:define name="TituloPagina">Página de Usuario</ui:define>
 	<ui:define name="CabeceraPagina">
-		<h1>Mis tareas</h1>
+		<h3>Mis Tareas</h3>
 	</ui:define>
 	<ui:define name="Contenido">
+		<div style="float: left; margin-left: 2%;">
+			<h3>Alta Tarea</h3>
+			<h:form>
+	Nombre:
+		<h:inputText id="altaTarea" value="#{tareaBean.tarea.nombreTareas}"
+					required="true"
+					requiredMessage="¡ERROR! Introduce un nombre para la Tarea">
+				</h:inputText>
+				<br />
+				<h:commandButton value="Añadir Tarea"
+					action="#{tareaBean.altaTarea()}">
+				</h:commandButton>
+				<br />
+				<h:message for="altaTarea" style="color:red" />
+				<h:outputText id="estadoAlta" value="#{tareaBean.respAlta}"
+					rendered="#{tareaBean.respRenderA}">
+				</h:outputText>
+			</h:form>
 
-		<h:form>
-			<h3>Alta Categorías</h3>
 
-	Nombre de la categoría:
-	<h:inputText value="" />
 
-			<h:commandButton action="estilo.css" value="Añadir Categoría" />
-		</h:form>
-		<h:form>
-			<h3>Alta Tareas</h3>
-	
-	Nombre de la tarea:
-	<h:inputText value="#{tareasBean.tarea.nombreTareas}" />
-			<h:commandButton action="#{tareasBean.addTarea(tareasBean.tarea.nombreTareas)}" value="Añadir Tarea" />
-		</h:form>
-		<h:form>
-			<h3>Baja Categorías</h3>
+			<h:form>
+				<h:dataTable var="tar" value="#{tareaBean.listaTareas}" border="1">
+					<h:column>
+						<f:facet name="header">Nombre de la tarea</f:facet>
+						<h:outputText value="#{tar.nombreTareas}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Acción</f:facet>
+						<h:commandButton action="#{tareaBean.bajaTarea(tar)}"
+							value="Borrar" />
+					</h:column>
+					<br />
+					<h:outputText id="estadoBaja" value="#{tareaBean.respBaja}"
+						rendered="#{tareaBean.respRenderB}">
+					</h:outputText>
+				</h:dataTable>
 
-	Nombre de la categoría:
-	<h:inputText value="" />
-			<h:commandButton action="estilo.css" value="Eliminar Categoría" />
-		</h:form>
-		<h:form>
-			<h3>Baja Tareas</h3>
+			</h:form>
+		</div>
 
-	Nombre de la tarea:
-	<h:inputText value="#{tareasBean.tarea.nombreTareas}" />
-			<h:commandButton action="estilo.css" value="Eliminar Tarea" />
-		</h:form>
+		<div style="float: right; margin-right: 2%;">
+			<h3>Alta Categoría</h3>
+			<h:form>
+	Nombre:
+		<h:inputText id="altaCat"
+					value="#{categoriaBean.categoria.nombreCategotria}" required="true"
+					requiredMessage="¡ERROR! Introduce un nombre para la Categoría">
+				</h:inputText>
+				<br />
+				<h:commandButton value="Añadir Categoría"
+					action="#{categoriaBean.altaCategoria()}">
+				</h:commandButton>
+				<br />
+				<h:message for="altaCat" style="color:red" />
+
+				<h:outputText id="estadoAlta" value="#{categoriaBean.respAlta}"
+					rendered="#{categoriaBean.respRenderA}">
+				</h:outputText>
+			</h:form>
+
+
+
+			<h:form>
+				<h:dataTable var="cat" value="#{categoriaBean.listaCategorias}"
+					border="1">
+					<h:column>
+						<f:facet name="header">Nombre de la Categoría</f:facet>
+						<h:outputText value="#{cat.nombreCategotria}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Acción</f:facet>
+						<h:commandButton action="#{categoriaBean.bajaCategoria(cat)}"
+							value="Borrar" />
+					</h:column>
+					<br />
+					<h:outputText id="estadoBaja" value="#{categoriaBean.respBaja}"
+						rendered="#{categoriaBean.respRenderB}">
+					</h:outputText>
+				</h:dataTable>
+
+			</h:form>
+		</div>
+		<br />
+		<div style="margin-top: 20%; margin-left: 35%; margin-right: 30%">
+
+
+			<h:form rendered="#{appBean.renderTablaComb}">
+				<table id="tablaCombinada">
+					<tr>
+						<th>Categoría</th>
+						<th>Tarea</th>
+						<th>Acción</th>
+					</tr>
+
+
+					<ui:repeat var="c" value="#{categoriaBean.listaCategorias}">
+						<ui:repeat var="t" value="#{tareaBean.listaTareas}">
+							<tr>
+								<td>#{c.nombreCategotria}</td>
+								<td>#{t.nombreTareas}</td>
+								<td><h:commandButton
+										action="#{appBean.pulsarBotonInicio()}"
+										value="Iniciar Seguimiento" /></td>
+							</tr>
+						</ui:repeat>
+					</ui:repeat>
+				</table>
+			</h:form>
+			<h:form rendered="#{appBean.renderBotonParar}" style="margin-top: 20%; margin-left: 40%; margin-right: 40%">
+				<h:commandButton action="#{appBean.pulsarBotonParar()}"
+					value="Detener Seguimiento" />
+			</h:form>
+		</div>
+
+
+
+
+
 	</ui:define>
-
 </ui:composition>
 </html>
