@@ -4,23 +4,14 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
 <h:head>
-	<meta content="text/html; charset=UTF-8" />
-	<h:link rel="Stylesheet" type="text/css" href="estilo.css" />
-	<title><ui:insert name="TituloPagina"></ui:insert></title>
-	<style>
-		h1 {
-			text-align: center;
-		}
-	</style>
+	<meta content="text/html; Charset=UTF-8"></meta>
+	<title><ui:insert name="TituloPagina">Titulo</ui:insert></title>
 </h:head>
-
 <h:body>
-	<ui:insert name="CabeceraPagina"></ui:insert>
-	<br />
-	<ui:insert name="Contenido"></ui:insert>
-	<br />
+
+<ui:insert name = "CabeceraPagina"></ui:insert>
+<br/>
+<ui:insert name = "Contenido"></ui:insert>
 
 </h:body>
-
-
 </html>
