@@ -10,6 +10,7 @@ import javax.persistence.PersistenceContext;
 import dl.Author;
 import dl.Journal;
 import dl.Publication;
+import dl.Relation;
 
 @Stateless
 @LocalBean
@@ -59,12 +60,16 @@ public class LogicaNegocio {
 	
 	public int altaPublicacion(Publication p, int idxRevista, int idxAut) {
 		try {
+			Relation r = new Relation();
 			if(em.createNamedQuery("Publication.findByName").setParameter("nombre", p.getTitle()).getResultList().isEmpty()) {
 				if(!em.createNamedQuery("Journal.findById").setParameter("id", idxRevista).getResultList().isEmpty()) {
 					if(!em.createNamedQuery("Author.findById").setParameter("id", idxAut).getResultList().isEmpty()) {
-					p.setJournalBean((Journal) em.createNamedQuery("Journal.findById").setParameter("id", idxRevista).getSingleResult());
-					em.persist(p);
-					return OK;
+						p.setJournalBean((Journal) em.createNamedQuery("Journal.findById").setParameter("id", idxRevista).getSingleResult());
+						em.persist(p);
+						r.setAuthorBean((Author) em.createNamedQuery("Author.findById").setParameter("id", idxAut).getSingleResult());
+						r.setPublicationBean((Publication) p);
+						em.persist(r);
+						return OK;
 					}else {
 						return Exception;
 					}
@@ -78,5 +83,9 @@ public class LogicaNegocio {
 			System.err.println(ex.getCause());
 			return Exception;
 		}	
+	}
+	
+	public List<Author> getAutor() {
+		return em.createNamedQuery("Author.findAll", Author.class).getResultList();
 	}
 }

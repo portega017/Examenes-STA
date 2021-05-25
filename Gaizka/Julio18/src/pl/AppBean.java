@@ -28,6 +28,7 @@ public class AppBean implements Serializable {
 	private int codErrorRev;
 	private boolean renderRevResp;
 	private String revResp;
+	private List<Author> la = new ArrayList<Author>();
 	private int idxRev;
 	private int codErrorPub;
 	private boolean renderPubResp;
@@ -41,6 +42,7 @@ public class AppBean implements Serializable {
 			setAutResp("El contacto que quiere dar de alta ya existe.");
 		}
 		setRenderAutResp(true);
+		la = null;
 	}
 	
 	public void altaRevista(Journal j) {
@@ -62,13 +64,20 @@ public class AppBean implements Serializable {
 	}
 	
 	public void altaPublicacion(Publication p) {
-		setCodErrorPub(ln.altaPublicacion(p,idxRev,idxAut));
+		setCodErrorPub(ln.altaPublicacion(p,idxRev+1,idxAut+1));
 		if(getCodErrorPub() == 0) {
 			setPubResp("Publicacion dada de alta satisfactoriamente.");
 		}else {
 			setPubResp("La publicacion que quiere dar de alta ya existe.");
 		}
 		setRenderPubResp(true);
+	}
+	
+	public List<Author> getAutor(){
+		if(la == null) {
+			la = ln.getAutor();
+		}
+		return la;
 	}
 
 	public int getCodErrorAut() {

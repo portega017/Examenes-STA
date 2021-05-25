@@ -93,12 +93,12 @@
 			<tr>
 				<td>Autor</td>
 				<td>
-					<h:selectOneMenu id="revistas" value="#{appBean.idxAut}" required="true" requiredMessage="¡ERROR! Tienes que seleccionar un autor para la publicación" >
+					<h:selectOneMenu id="autor" value="#{appBean.idxAut}" required="true" requiredMessage="¡ERROR! Tienes que seleccionar un autor para la publicación" >
 						<f:selectItem itemValue="#{null}" itemLabel="-- Seleccione uno --" itemDisabled="true" noSelectionOption="true"/>
-						<f:selectItems value="#{appBean.revista}" var="revistas" itemLabel="#{revistas.name}" itemValue="#{appBean.revista.indexOf(revistas)}"></f:selectItems>
+						<f:selectItems value="#{appBean.autor}" var="autores" itemLabel="#{autores.name}" itemValue="#{appBean.autor.indexOf(autores)}"></f:selectItems>
 					</h:selectOneMenu>
 					<br />
-					<h:message for="revistas" style="color:red"/>
+					<h:message for="autor" style="color:red"/>
 				</td>
 			</tr>
 			<tr>
