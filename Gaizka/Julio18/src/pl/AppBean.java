@@ -1,7 +1,6 @@
 package pl;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -20,19 +19,24 @@ public class AppBean implements Serializable {
 	@EJB
 	private LogicaNegocio ln = new LogicaNegocio();
 	private static final long serialVersionUID = 1L;
+	
 	private int codErrorAut;
 	private boolean renderAutResp;
 	private String autResp;
-	private List<Journal> lj = new ArrayList<Journal>();
+	private List<Journal> lj;
 	private int idxAut;
+	
 	private int codErrorRev;
 	private boolean renderRevResp;
 	private String revResp;
-	private List<Author> la = new ArrayList<Author>();
+	private List<Author> la;
 	private int idxRev;
+	
 	private int codErrorPub;
 	private boolean renderPubResp;
 	private String pubResp;
+	
+	private List<Integer> lafp;
 	
 	public void altaAutor(Author a) {
 		setCodErrorAut(ln.altaAutor(a));
@@ -64,7 +68,7 @@ public class AppBean implements Serializable {
 	}
 	
 	public void altaPublicacion(Publication p) {
-		setCodErrorPub(ln.altaPublicacion(p,idxRev+1,idxAut+1));
+		setCodErrorPub(ln.altaPublicacion(p,idxRev,lafp));
 		if(getCodErrorPub() == 0) {
 			setPubResp("Publicacion dada de alta satisfactoriamente.");
 		}else {
@@ -78,6 +82,10 @@ public class AppBean implements Serializable {
 			la = ln.getAutor();
 		}
 		return la;
+	}
+
+	public void authorToList(int autId) {
+		lafp.add(autId);
 	}
 
 	public int getCodErrorAut() {
@@ -167,6 +175,4 @@ public class AppBean implements Serializable {
 	public void setIdxAut(int idxAut) {
 		this.idxAut = idxAut;
 	}
-	
-	
 }

@@ -20,7 +20,6 @@ public class LogicaNegocio {
 	private final int Exception=1;
 	private final int AuthorExists=2;
 	private final int JournalExists=3;
-	private final int PublicationExists=4;
 	
 	
 	@PersistenceContext
@@ -58,26 +57,17 @@ public class LogicaNegocio {
 		return em.createNamedQuery("Journal.findAll", Journal.class).getResultList();
 	}
 	
-	public int altaPublicacion(Publication p, int idxRevista, int idxAut) {
+	public int altaPublicacion(Publication p, int idxRevista, List<Integer> autList) {
 		try {
-			Relation r = new Relation();
-			if(em.createNamedQuery("Publication.findByName").setParameter("nombre", p.getTitle()).getResultList().isEmpty()) {
-				if(!em.createNamedQuery("Journal.findById").setParameter("id", idxRevista).getResultList().isEmpty()) {
-					if(!em.createNamedQuery("Author.findById").setParameter("id", idxAut).getResultList().isEmpty()) {
-						p.setJournalBean((Journal) em.createNamedQuery("Journal.findById").setParameter("id", idxRevista).getSingleResult());
-						em.persist(p);
-						r.setAuthorBean((Author) em.createNamedQuery("Author.findById").setParameter("id", idxAut).getSingleResult());
-						r.setPublicationBean((Publication) p);
-						em.persist(r);
-						return OK;
-					}else {
-						return Exception;
-					}
-				}else {
-					return Exception;
+			if(!em.createNamedQuery("Journal.findById").setParameter("id", idxRevista).getResultList().isEmpty()) {
+				p.setJournalBean((Journal) em.createNamedQuery("Journal.findById").setParameter("id", idxRevista).getSingleResult());
+				em.persist(p);
+				for(int i=0;i<autList.size();i++) {
+					anadirAutorAPub(p, autList.get(i));
 				}
+				return OK;
 			}else {
-				return PublicationExists;
+				return Exception;
 			}
 		}catch(Exception ex) {
 			System.err.println(ex.getCause());
@@ -85,7 +75,31 @@ public class LogicaNegocio {
 		}	
 	}
 	
+	public int anadirAutorAPub(Publication p, int autId) {
+		Relation r = new Relation();
+		if(!em.createNamedQuery("Author.findById").setParameter("id", autId).getResultList().isEmpty()) {	
+			Author aut = (Author) em.createNamedQuery("Author.findById").setParameter("id", autId).getSingleResult();
+			r.setAuthorBean((Author) aut);
+			r.setPublicationBean((Publication) p);
+			em.persist(r);
+			return OK;
+		}else {
+			return Exception;
+		}
+	}
+	
 	public List<Author> getAutor() {
 		return em.createNamedQuery("Author.findAll", Author.class).getResultList();
 	}
+
 }
+
+
+
+
+
+
+
+
+
+
