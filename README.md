@@ -2,5 +2,7 @@
 
 - Gaizka
   - Mayo 13.
-  - Junio 13. (Configuración).
   - Julio 18. (1, 2 y 3).
+  - Mayo 19. (Faltan detalles).
+  - Mayo 20. (Faltan detalles).
+
