@@ -626,7 +626,13 @@ public String altaProducto(Producto p) {
 
 1. Vamos a la carpeta del WildFly y ejecutamos bin/add-user.sh
 
-2. Para referenciar en Java cuales son los métodos que se van a poder usar con determinados roles.
+2. Si quieres hacerlo de forma Web, modificar el web.xml.
+
+   ![](https://i.imgur.com/c9Nsptr.png)
+
+   
+
+3. Para referenciar en Java cuales son los métodos que se van a poder usar con determinados roles.
 
    ```java
    // Solo permite acceder a los usuarios que pertenezcan a los roles que indiques
