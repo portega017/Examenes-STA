@@ -12,7 +12,8 @@ import javax.persistence.*;
 @NamedQueries({
 	@NamedQuery(name="Persona.findAll", query="SELECT p FROM Persona p"),
 	@NamedQuery(name="Persona.findById", query="SELECT p FROM Persona p WHERE p.id = :id"),
-	@NamedQuery(name="Persona.findByUpTemp", query="SELECT p FROM Persona p WHERE p.temperatura >= :temp")
+	@NamedQuery(name="Persona.findByUpTemp", query="SELECT p FROM Persona p WHERE p.temperatura >= :temp"),
+	@NamedQuery(name="Persona.findByMunicipio", query="SELECT p FROM Persona p WHERE p.municipio.id = :munId")
 })
 public class Persona implements Serializable {
 	private static final long serialVersionUID = 1L;

@@ -8,6 +8,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import bl.LogicaNegocio;
+import dl.Municipio;
 import dl.Persona;
 
 @Named
@@ -19,6 +20,7 @@ public class AppBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private float temp = 37;
 	private List<Persona> lpt;
+	private List<Municipio> lm;
 
 	public void updateList() {
 		lpt = null;
@@ -30,12 +32,16 @@ public class AppBean implements Serializable {
 		return lpt;
 	}
 	
+	public List<Municipio> getLm() {
+		if(lm == null)
+			lm = ln.getMunicipios();
+		return lm;
+	}
 	
 	public void avisar() {
 		ln.avisar(temp);
 		lpt = null;
 	}
-	
 	
 	public String fromBoolToText(boolean bol) {
 		if(bol == true) {
@@ -45,6 +51,13 @@ public class AppBean implements Serializable {
 		}
 	}
 	
+	public int getAfectados(int munId) {
+		return ln.getAfectados(munId);
+	}
+	
+	public float getPorAfectados(int munId) {
+		return ln.getPorAfectados(munId);
+	}
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////
 	

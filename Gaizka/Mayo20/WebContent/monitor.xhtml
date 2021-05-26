@@ -4,8 +4,30 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"> 
 
-<h:head></h:head> 
+<h:head>
+	<meta content="text/html"></meta>
+	<title>Monitorización</title>
+</h:head> 
 <body> 
-
+	<h1>Monitorización</h1>
+	<table border="1">
+		<tr><th>Afectación de municipios</th></tr>
+	</table>
+	<table border="1">
+		<tr>
+			<th>Municipio</th>
+			<th>Afectados</th>
+			<th>Habitantes</th>
+			<th>Porcentaje</th>
+		</tr>
+		<ui:repeat var="m" value="#{appBean.lm}">
+			<tr>
+				<td>#{m.nombre}</td>
+				<td>#{appBean.getAfectados(m.id)}</td>
+				<td>#{m.habitantes}</td>
+				<td>#{appBean.getPorAfectados(m.id)}%</td>
+			</tr>
+		</ui:repeat>
+	</table>
 </body> 
 </html>

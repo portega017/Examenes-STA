@@ -2,13 +2,27 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
   <display-name>Mayo20</display-name>
   <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
+    <welcome-file>monitor.html</welcome-file>
   </welcome-file-list>
+  <login-config>
+  	<auth-method>BASIC</auth-method>
+  </login-config>
+  <security-role>
+  	<description>Administradores</description>
+  	<role-name>administrator</role-name>
+  </security-role>
+  <security-constraint>
+  	<web-resource-collection>
+  		<web-resource-name>admin</web-resource-name>
+  		<url-pattern>/admin/*</url-pattern>
+  	</web-resource-collection>
+  	<auth-constraint>
+  		<role-name>administrator</role-name>
+  	</auth-constraint>
+  	<user-data-constraint>
+  		<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+  	</user-data-constraint>
+  </security-constraint>
   <servlet>
     <servlet-name>Faces Servlet</servlet-name>
     <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
