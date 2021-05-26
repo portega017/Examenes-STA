@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<meta content="text/html"></meta>
+	<title>Alumnos</title>
+</h:head> 
+<body> 
+	<h1>Alumnos</h1>
+	<h2>Añadir respuesta a los examenes</h2>
+	<h:form>	
+		<h4>Nombre</h4>
+		<table>
+			<tr>
+				<td><h:inputText value="#{entregaBean.entity.nombre}" /></td>
+			</tr>
+			<tr>
+				<td><h:commandButton action="#{alumnosBean.recibidoNombre(entregaBean.entity.nombre)}" value="Enviar" /></td>
+			</tr>
+		</table>
+		<h:panelGroup rendered="#{alumnosBean.renderNombre}">
+			<table>
+				<tr>
+					<th>Respuesta</th>
+					<th>Examen</th>
+				</tr>
+				<tr>
+					<td><h:inputText value="#{entregaBean.entity.respuesta}" /></td>
+					<td>
+						<h:selectOneMenu value="#{alumnosBean.idxExamenes}">
+							<f:selectItems value="#{alumnosBean.listaExamen}" var="e" itemValue="#{e.idExamen}" itemLabel="#{e.asignatura}" ></f:selectItems>
+						</h:selectOneMenu>				
+					</td>
+					<td><h:commandButton action="#{alumnosBean.altaRespuesta(entregaBean.entity)}" value="Enviar respuesta"></h:commandButton></td>
+					<h:panelGroup rendered="#{alumnosBean.render}" style="color:red"><td>#{alumnosBean.resp}</td></h:panelGroup>
+				</tr>
+			</table>	
+		</h:panelGroup>
+	</h:form>
+</body> 
+</html>

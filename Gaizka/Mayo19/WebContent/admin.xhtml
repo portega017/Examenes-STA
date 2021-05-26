@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<meta content="text/html"></meta>
+	<title>Administradores</title>
+</h:head> 
+<body> 
+	<h1>Administradores</h1>
+	<h2>Dar examenes de alta</h2>
+	<h:form>
+		<table>
+			<tr>
+				<th>Asignatura</th>
+				<th>Nº de alumnos</th>
+				<th>Aulas</th>
+			</tr>
+			<tr>
+				<td>
+					<h:inputText value="#{examenBean.entity.asignatura}" />
+				</td>
+				<td>
+					<h:inputText value="#{examenBean.entity.alumnos}" />
+				</td>
+				<td>
+					<h:inputText value="#{reservaBean.entity.aula}" />
+				</td>
+				<td>
+				<h:commandButton action="#{administradorBean.altaAula(reservaBean.entity.aula)}" value="Añadir aula" />
+				</td>
+				<td>
+					<h:commandButton action="#{administradorBean.altaExamen(examenBean.entity)}" value="Añadir Examen" />
+				</td>
+				<td><h:panelGroup rendered="#{administradorBean.render}" style="color:red">#{administradorBean.resp}</h:panelGroup></td>
+			</tr>
+			<ui:repeat var="a" value="#{administradorBean.listaAulas}">
+			<tr>
+				<td></td>
+				<td></td>
+				<td>#{a}</td>	
+				<td></td>
+			</tr>
+		</ui:repeat>
+		</table>
+	</h:form>
+</body> 
+</html>

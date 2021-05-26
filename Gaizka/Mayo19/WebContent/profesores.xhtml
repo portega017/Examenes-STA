@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<meta content="text/html"></meta>
+	<title>Profesores</title>
+</h:head> 
+<body> 
+	<h1>Profesores</h1>
+	<h2>Lista de examenes</h2>
+	<h:form>
+		<table>
+			<tr>
+				<th>Asignatura</th>
+				<th>Porcentaje</th>
+			</tr>
+			<ui:repeat var="e" value="#{profesorBean.listaExamenes}">
+				<tr>
+					<td>#{e.idExamen}</td>
+					<ui:repeat var="" value="" >
+						<td></td>
+					</ui:repeat>
+				</tr>
+			</ui:repeat>
+		</table>
+	</h:form>
+</body> 
+</html>
