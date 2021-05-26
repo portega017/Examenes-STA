@@ -730,6 +730,8 @@ return context.getRemoteUser();
 
 ## Problemas
 
+- CASCADE. Tanto en update como en insert. Edit-> Preferences -> Modelling
+
 - Siempre que trabajamos con métodos que conectan con la BD y nos dan errores **mirar al final del todo de la traza** (Es donde están los sqlErrors)
 
 - Siempre que ponga **errores con módulos** y tal volver a **repasar** los primero pasos de la configuración, todo lo que tenga que ver con **archivos de configuración.**
@@ -739,5 +741,7 @@ return context.getRemoteUser();
 - **No se puede restablecer la vista.** Con recargar la pagina, full publish o reiniciar el wildfly se arregla.
 
 - Si en el navegador en inspeccionar podemos leer el código igual que nuestro XHTML es que no se está interpretando, esto es porque no está activado JSF en project facets.
+
+- **NullPointerException en algun add a una lista.** No has creado el objeto ArrayList, hay que crearlo.
 
   
