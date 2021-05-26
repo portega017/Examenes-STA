@@ -1,5 +1,47 @@
 # Examen STA
 
+## Cosas a recordar
+
+### Seguridad
+
+- login-config
+  - auth-method (BASIC)
+- security-role
+  - description
+  - role-name (Nombre del rol a definir)
+- security-constraint
+  - web-resource-collection
+    - wen-resource-name (Nombre Proyecto)
+    - url-pattern (Url a la que aplica)
+  - auth-constraint
+    - role-name (El rol que va a poder acceder)
+  - user-data-constraint
+    - transport-guarantee (CONFIDENTIAL)
+
+### Anotaciones EJB
+
+- LogicaNegocio: @Stateless, @LocalBean, @PersistenceContext (En el atributo EntityManager)
+- AppBean: @Named, @ViewScoped
+- MBs: @Named, @RequestScoped
+
+### JSF
+
+- inputText: value (Donde quieres que se guarde), requiered, requieredMessage
+- commandButton: action (Lo que quieres que se ejecute al darle al boton), value (El texto del boton)
+- h:panelGroup: rendered (Boolean que indica cuando mostrar esta parte o no)
+- h:selectOneMenu: value (donde queremos que se guarde), required, requiredMessage
+- f:selectItems: value (La lista que queremos que recorra para mostrar en el desplegable). var (Variable que recorre), itemLabel (Lo que queremos que ponga en cada desplegable), itemValue (Lo que queremos que valga cada desplegable)
+- ui:repeat : var (Variable que recorre), value (La lista que recorre)​
+
+### Anotaciones REST
+
+- JaxRsActivator: @ApplicationPath("/rest")
+- Proveedor: @Path("/api")
+- Consumidor: no tiene etiquetas
+- Metodos: @GET (Para hacer la peticion por GET), @POST (Para hacer la peticion por POST),  @Consumes (Para indicar lo que consume), @Produces (Para indicar lo que produce)
+
+
+
 ## Configuración
 
 1. Crear base de datos, o importar una que te den.
