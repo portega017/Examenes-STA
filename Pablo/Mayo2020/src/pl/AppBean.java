@@ -77,8 +77,10 @@ public class AppBean implements Serializable {
 	public int getAvisados(int idMun) {
 		return miEjb.getInfectados(idMun);
 	}
-	public float getPorcentaje(int idMun) {
-		return miEjb.getPorcentaje(idMun);
+	public float getPorcentaje(int infectados, int habitantes) {
+		float infecF=(float)infectados;
+		float habF=(float)habitantes;
+		return miEjb.getPorcentaje(infecF, habF);
 	}
 
 	public void avisar() {

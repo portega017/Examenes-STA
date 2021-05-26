@@ -30,7 +30,7 @@
 			</h:column>
 			<h:column>
 				<f:facet name="header">Porcentaje</f:facet>
-				<h:outputText value="#{appBean.getPorcentaje(municipio.id)}%" />
+				<h:outputText value="#{appBean.getPorcentaje(appBean.getAvisados(municipio.id), municipio.habitantes)} %" />
 			</h:column>
 		</h:dataTable>
 	</ui:define>

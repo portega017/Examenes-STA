@@ -88,11 +88,9 @@ public class Servicios implements Serializable {
 		}
 	}
 
-	public float getPorcentaje(int idMun) {
-		float afectados = getInfectados(idMun);
-		float numHab = em.createNamedQuery("Persona.findByMunicipio", Persona.class).setParameter("idMun", idMun)
-				.getResultList().size();
-		float porcent=Math.round((afectados / numHab) * 100);
+	public float getPorcentaje(float infectados, float habitantes) {
+	
+		float porcent=((infectados / habitantes) * 100);
 		return porcent;
 	}
 }
