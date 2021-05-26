@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<ui:composition template="/WEB-INF/templates/layout.xhtml">
+	<ui:define name="TituloPagina">Página de Monitorización</ui:define>
+	<ui:define name="CabeceraPagina">
+		<h1>Monitorización</h1>
+	</ui:define>
+	<ui:define name="Contenido">
+		<table border="2">
+			<tr>
+				<th>Afectación de municipios</th>
+			</tr>
+		</table>
+		<h:dataTable var="municipio" value="#{appBean.municip}" border="2">
+			<h:column>
+				<f:facet name="header">Municipio</f:facet>
+				<h:outputText value="#{municipio.nombre}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Afectados</f:facet>
+				<h:outputText value="#{appBean.getAvisados(municipio.id)}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Habitantes</f:facet>
+				<h:outputText value="#{municipio.habitantes}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Porcentaje</f:facet>
+				<h:outputText value="#{appBean.getPorcentaje(municipio.id)}%" />
+			</h:column>
+		</h:dataTable>
+	</ui:define>
+
+
+
+</ui:composition>
+</html>

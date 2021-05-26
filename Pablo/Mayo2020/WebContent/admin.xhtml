@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<ui:composition template="/WEB-INF/templates/layout.xhtml">
+	<ui:define name="TituloPagina">Página de Administración</ui:define>
+	<ui:define name="CabeceraPagina">
+		<h1>Administración</h1>
+	</ui:define>
+	<ui:define name="Contenido">
+
+		<h:form>
+	Umbral de Temperatura: 
+	<h:inputText value="#{appBean.temp}" />
+			<br />
+			<h:commandButton action="#{appBean.pulsarBotonActualizar()}"
+				value="Actualizar" />
+		</h:form>
+		<table border="2">
+			<tr>
+				<th>Posibles infectados (Tª>=#{appBean.temp})</th>
+			</tr>
+		</table>
+		<h:dataTable var="persona" value="#{appBean.lpt}" border="2">
+
+			<h:column>
+				<f:facet name="header">ID</f:facet>
+				<h:outputText value="#{persona.id}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Temperatura</f:facet>
+				<h:outputText value="#{persona.temperatura}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Avisado</f:facet>
+				<h:outputText value="#{appBean.fromBoolToText(persona.avisado)}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Municipio</f:facet>
+				<h:outputText value="#{persona.municipio.nombre}" />
+			</h:column>
+
+
+
+		</h:dataTable>
+		<h:form>
+		<h:commandButton action="#{appBean.avisar()}" value="Avisar a infectados y contactos" />
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
+</html>
