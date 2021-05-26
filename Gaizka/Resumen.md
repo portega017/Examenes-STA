@@ -431,6 +431,19 @@ public void alta(Bean b) {
 <h:message for="revistas" style="color:red"/>
 ```
 
+##### Tabla dinámica
+
+```html
+<ui:repeat var="b" value="#{appBean.beans}">
+    <tr>
+        <td >#{b.referencia}</td>
+        <td >#{b.nombre}</td>
+        <td >#{b.tipo}</td>
+        <td >#{b.precio}€</td>
+    </tr>
+</ui:repeat>	
+```
+
 
 
 ## REST
@@ -700,6 +713,12 @@ return context.getRemoteUser();
 - Escribir **lista=null en el bean** para que se actualice todo. (Por ejemplo los desplegables).
 
 - Los **h:commandButton siempre dentro de un h:form**, si no no va a funcionar (Nos podemos fijar en que no funciona viendo que la pagina no recarga o en el navegador en inspeccionar -> Network).
+
+- Tipos de datos en JPA versus MySql:
+
+  - boolean (Con minuscula) en JPA -> Tinyint(1) en MySql. OJO CON ESTO POR QUE POR DEFECTO PILLA BYTE.
+  -   ![](https://i.imgur.com/azlUnoF.png)
+  - 
 
   
 

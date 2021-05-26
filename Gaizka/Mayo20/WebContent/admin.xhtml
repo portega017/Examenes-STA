@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<meta content="text/html"></meta>
+	<title>Administración</title>
+</h:head> 
+<body> 
+	<h1>Administración</h1>
+	<h:form>
+		<table>
+			<tr>
+				<td>Umbral de temperatura: </td>
+				<td><h:inputText id="temp" value="#{appBean.temp}" ></h:inputText></td>
+			</tr>
+			<tr>
+				<td><h:commandButton action="#{appBean.updateList()}" value="Actualizar" /></td>
+			</tr>
+		</table>
+	</h:form>
+	<br />
+	<table border="1">
+		<tr>
+			<th>Posibles infectados (Tº >= #{appBean.temp})</th>
+		</tr>
+	</table>
+	<table border="1">
+		<tr>
+			<th>ID</th>
+			<th>Temperatura</th>
+			<th>Avisado</th>
+			<th>Municipio</th>
+		</tr>
+		<ui:repeat var="p" value="#{appBean.lpt}">
+			<tr>
+				<td>#{p.id}</td>
+				<td>#{p.temperatura}</td>
+				<td>#{appBean.fromBoolToText(p.avisado)}</td>
+				<td>#{p.municipio.nombre}</td>
+			</tr>
+		</ui:repeat>
+	</table>
+	<br />
+	<h:form><h:commandButton action="#{appBean.avisar()}" value="Avisar a infectados y contactos" ></h:commandButton></h:form>
+</body> 
+</html>
